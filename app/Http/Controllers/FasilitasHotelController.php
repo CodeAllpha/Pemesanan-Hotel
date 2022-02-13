@@ -64,7 +64,7 @@ class FasilitasHotelController extends Controller
             $data->foto_fasilitas_hotel = $filename;
         }
         $data->save();
-        return redirect()->route('fasilitas.index');
+        return redirect()->route('fasilitas.index')->with('toast_success', 'Data Berhasil Di Tambahkan!');
 
     }
 
@@ -141,7 +141,7 @@ class FasilitasHotelController extends Controller
             $data->foto_fasilitas_hotel = $filename;
         }
         $data->update();
-        return redirect()->route('fasilitas.index');
+        return redirect()->route('fasilitas.index')->with('toast_success', 'Data Berhasil Di Update!');
 
     }
 
@@ -161,6 +161,6 @@ class FasilitasHotelController extends Controller
             File::delete($destination);
         }
         $data->delete();
-        return redirect()->route('fasilitas.index');
+        return redirect()->route('fasilitas.index')->with('toast_success', 'Data Berhasil Di Hapus!');
     }
 }

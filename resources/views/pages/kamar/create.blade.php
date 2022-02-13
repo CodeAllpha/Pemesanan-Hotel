@@ -1,4 +1,8 @@
 @extends('layouts.main')
+@section('title')
+  Kamar Create
+@endsection
+
 
 @section('main-content')
 <div class="app-content content">

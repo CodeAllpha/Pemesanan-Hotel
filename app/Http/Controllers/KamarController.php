@@ -13,7 +13,7 @@ class KamarController extends Controller
 
     function __construct()
     {
-        $this->middleware('can:role,"admin"',[
+        $this->middleware('can:level,"admin"',[
             'except'=>['index','show']
         ]);
     }
@@ -80,7 +80,7 @@ class KamarController extends Controller
             $data->foto_kamar = $filename;
         }
         $data->save();
-        return redirect()->route('kamar.index');
+        return redirect()->route('kamar.index')->with('toast_success', 'Data Berhasil Di Tambahkan!');
 
         // $ext = $request->foto_kamar->getClientOriginalExtension();
         // $filename = rand(9,999).'_'.time().'.'.$ext;
@@ -177,7 +177,7 @@ class KamarController extends Controller
             $data->foto_kamar = $filename;
         }
         $data->update();
-        return redirect()->route('kamar.index');
+        return redirect()->route('kamar.index')->with('toast_success', 'Data Berhasil Di Update!');
         
     }
 
@@ -197,6 +197,6 @@ class KamarController extends Controller
             File::delete($destination);
         }
         $data->delete();
-        return redirect()->route('kamar.index');
+        return redirect()->route('kamar.index')->with('toast_success', 'Data Berhasil Di Hapus!');
     }
 }

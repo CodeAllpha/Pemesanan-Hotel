@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('title')
+  Kamar Edit
+@endsection
+
 @section('main-content')
 <div class="app-content content">
     <div class="content-wrapper">
@@ -31,12 +35,11 @@
         <x-textarea label="Deskripsi Kamar" name="deskripsi_kamar" type="text" placeholder="Masukan Deskripsi Kamar" :value="$item->deskripsi_kamar"/>   
         </div>
         <div class="col-md-6">
-        <img src="{{ asset('assets/kamar/'.$item->foto_kamar) }}" id="foto_kamar" class="img-thumbnail" style="margin-top:25px">
-        <x-input label="Foto Kamar" id="foto_kamar" name="foto_kamar" placeholder="Masukan Foto Kamar" type="file" 
-        keterangan="Foto Bertipe : png. jpg. jpeg" accept="foto_kamar/*" onchange="document.getElementById('foto_kamar').src = window.URL.createObjectURL(this.files[0])"/>
-        </div>
-        <div class="col-6">
-        
+        <img src="{{ asset('assets/kamar/'.$item->foto_kamar) }}"class="img-fluid" style="margin-top:28px" >
+        {{-- <x-input label="Foto Kamar"  name="foto_kamar" placeholder="Masukan Foto Kamar" type="file" 
+        keterangan="Foto Bertipe : png. jpg. jpeg" id="image" onchange="previewImage()"/> --}}
+        <label for="foto_kamar">Foto Kamar</label>
+        <input class="form-control mb-2" id="image"  type="file" name="foto_kamar" onchange="previewImage()">
         </div>
     </div>
     </x-form-edit>  
@@ -45,3 +48,23 @@
 </div>
 </div>
 @endsection
+@push('js')
+<script>
+  function previewImage(){
+    const image = document.querySelector('#image');
+    const imgPreview = document.querySelector('.img-fluid');
+
+    imgPreview.style.display = 'block';
+
+    const oFReader = new FileReader();
+    oFReader.readAsDataURL(image.files[0]);
+
+    oFReader.onload = function(ofREvent){
+      imgPreview.src = ofREvent.target.result;
+    }
+
+  }
+</script>
+
+@endpush
+

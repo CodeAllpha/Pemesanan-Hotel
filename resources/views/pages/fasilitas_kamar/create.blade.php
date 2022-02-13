@@ -1,5 +1,10 @@
 @extends('layouts.main')
 
+@section('title')
+  Fasilitas Kamar Create
+@endsection
+
+
 @section('main-content')
 <div class="app-content content">
     <div class="content-wrapper">
@@ -24,7 +29,7 @@
      
 <!-- Striped rows start -->
         <x-form-create :action="route('kamar.fasilitas.store',['kamar'=>$kamar->id])" :upload="true">
-            <x-input label="Nama Fasilitas Kamar" name="nama_fasilitas_kamar"/>
+            <x-input label="Nama Fasilitas Kamar" name="nama_fasilitas_kamar" placeholder="Masukan Nama Fasilitas Kamar"/>
         </x-form-create>    
 <!-- Striped rows end -->
       </div>

@@ -1,5 +1,10 @@
 @extends('layouts.main')
 
+@section('title')
+  Fasilitas Hotel
+@endsection
+
+
 @section('main-content')
 <div class="app-content content">
     <div class="content-wrapper">

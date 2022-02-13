@@ -60,7 +60,7 @@ class AdminController extends Controller
            'level' => 'resepsionis',
        ]);
 
-       return redirect()->route('admin.index');
+       return redirect()->route('admin.index')->with('toast_success', 'Data Berhasil Di Tambahkan!');
     }
 
     /**
@@ -117,7 +117,7 @@ class AdminController extends Controller
 
         $admin->update($arr);
 
-        return redirect()->route('admin.index');
+        return redirect()->route('admin.index')->with('toast_success', 'Data Berhasil Di Update!');
     }
 
     /**
@@ -129,7 +129,7 @@ class AdminController extends Controller
     public function destroy(Admin $admin)
     {
         $admin->delete();
-        return redirect()->route('admin.index');
+        return redirect()->route('admin.index')->with('toast_success', 'Data Berhasil Di Hapus!');
     }
 
     public function akun()
@@ -165,6 +165,6 @@ class AdminController extends Controller
 
         $admin->update($arr);
 
-        return back();
+        return back()->with('toast_success', 'Data Berhasil Di Update!');
     }
 }

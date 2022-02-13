@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('title')
+  Fasilitas Kamar
+@endsection
+
 @section('main-content')
 <div class="app-content content">
     <div class="content-wrapper">

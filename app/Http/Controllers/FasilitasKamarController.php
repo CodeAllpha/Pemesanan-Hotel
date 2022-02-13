@@ -48,7 +48,7 @@ class FasilitasKamarController extends Controller
             'nama_fasilitas_kamar'=>$request->nama_fasilitas_kamar
         ]);
 
-        return redirect()->route('kamar.fasilitas.index',['kamar'=>$kamar->id]);
+        return redirect()->route('kamar.fasilitas.index',['kamar'=>$kamar->id])->with('toast_success', 'Data Berhasil Di Tambahkan!');
     }
 
     /**
@@ -91,7 +91,7 @@ class FasilitasKamarController extends Controller
         ]);
 
         $fasilita->update();
-        return redirect()->route('kamar.fasilitas.index',['kamar'=>$kamar->id]);
+        return redirect()->route('kamar.fasilitas.index',['kamar'=>$kamar->id])->with('toast_success', 'Data Berhasil Di Update!');
         
     }
 
@@ -104,6 +104,6 @@ class FasilitasKamarController extends Controller
     public function destroy(Kamar $kamar,FasilitasKamar $fasilita)
     {
         $fasilita->delete();
-        return redirect()->route('kamar.fasilitas.index',['kamar'=>$kamar->id]);
+        return redirect()->route('kamar.fasilitas.index',['kamar'=>$kamar->id])->with('toast_success', 'Data Berhasil Di Hapus!');
     }
 }

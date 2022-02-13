@@ -1,5 +1,10 @@
 @extends('layouts.main')
 
+@section('title')
+  My Account
+@endsection
+
+
 @section('main-content')
 <div class="app-content content">
     <div class="content-wrapper">
@@ -25,12 +30,12 @@
       <x-form-edit :action="route('admin.akun')">
         <div class="row">
             <div class="col-md-6">
-           <x-input label="Nama Admin" name="name" :value="$item->name"/>
-           <x-input label="Username" name="username" :value="$item->username"/>
+           <x-input label="Nama Admin" name="name" placeholder="Nama Admin" :value="$item->name"/>
+           <x-input label="Username" name="username" placeholder="Username" :value="$item->username"/>
             </div>
            <div class="col-md-6">
-           <x-input label="Password" name="password" type="password"/>
-           <x-input label="Konfirmasi Password" name="password_confirmation" type="password"/>   
+           <x-input label="Password" name="password" placeholder="Password" type="password"/>
+           <x-input label="Konfirmasi Password" name="password_confirmation" placeholder="Konfirmasi Password" type="password"/>   
            </div>
         </div>
        </x-form-edit>  

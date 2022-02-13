@@ -11,3 +11,4 @@
  <!-- BEGIN PAGE LEVEL JS-->
  <script src="{{ url('backend/Dashboard Template/theme-assets/js/scripts/pages/dashboard-lite.js') }}" type="text/javascript"></script>
  <!-- END PAGE LEVEL JS-->
+

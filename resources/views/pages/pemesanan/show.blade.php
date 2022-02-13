@@ -1,5 +1,10 @@
 @extends('layouts.main')
 
+@section('title')
+  Pemesanan Show
+@endsection
+
+
 @section('main-content')
 <div class="app-content content">
     <div class="content-wrapper">
@@ -84,17 +89,12 @@
                         @method('put')
                           <x-select name="status" :value="$pemesanan->value_status" :select-option="$option"/>
                            {{-- <button type="submit" class="btn btn-sm btn-success ml-2">Update</button> --}}
-                      
+                           <button type="submit" class="btn btn-primary btn-sm ml-1">
+                              Update
+                          </button>
                       
                      </div>
                  </div>
-                 <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted mt-1">
-                  <div class="form-group d-grid">
-                     <button type="submit" class="btn btn-primary btn-block">
-                         Simpan
-                     </button>
-                 </div>
-                </div>
                </form>
                 </div>
                   
@@ -143,14 +143,7 @@
                         <p>{{ $pemesanan->tanggal_dibuat }}</p>
                      </div>
                    </div>
-            
-                   <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted" style="margin-top: 60px">
-                     <span class="float-right">
-                       <a href="{{ route('pemesanan.index') }}" class="card-link">Kembali
-                         <i class="la la-angle-right"></i>
-                       </a>
-                     </span>
-                   </div>
+                   <br>
                 </div>
              
             </div>

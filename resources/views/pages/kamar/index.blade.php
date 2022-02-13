@@ -1,5 +1,10 @@
 @extends('layouts.main')
 
+@section('title')
+  Kamar
+@endsection
+
+
 @section('main-content')
 <div class="app-content content">
     <div class="content-wrapper">
@@ -63,20 +68,21 @@
                         <td scope="row">{{ $item->jumlah_kamar }}</td>
                       
                         <td>
-                         @can('level','admin')
+                        
+                        
                          <a href="{{ route('kamar.fasilitas.index',['kamar'=>$item->id]) }}"
                           class="mr-1"><i class="la la-television" title="Fasilitas"></i>
                          </a>
-                         @endcan
-                          <x-btn-show :link="route('kamar.show',['kamar'=>$item->id])"/>
-                         @can('level','admin')
-                         <x-btn-edit :link="route('kamar.edit',['kamar'=>$item->id])"/>
-                          <x-btn-delete :link="route('kamar.destroy',['kamar'=>$item->id])"/> 
-                         @endcan
+                         <x-btn-show :link="route('kamar.show',['kamar'=>$item->id])"/>
+
+                       @can('level','admin')
+                       <x-btn-edit :link="route('kamar.edit',['kamar'=>$item->id])"/>
+                      <x-btn-delete :link="route('kamar.destroy',['kamar'=>$item->id])"/> 
+                       @endcan
                        
+                      
                         </td>
                     </tr> 
-
                      @empty
                      <tr>
                       <td colspan="5" class="text-center py-5" >

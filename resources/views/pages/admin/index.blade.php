@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+
+@section('title')
+  Admin
+@endsection
 @section('main-content')
 <div class="app-content content">
     <div class="content-wrapper">
@@ -61,8 +65,10 @@
                         <td scope="row">{{ $item->level }}</td>
                       
                         <td>
-                          <x-btn-edit :link="route('admin.edit',['admin'=>$item->id])"/>
+                         @can('level','admin')
+                         <x-btn-edit :link="route('admin.edit',['admin'=>$item->id])"/>
                           <x-btn-delete :link="route('admin.destroy',['admin'=>$item->id])"/>
+                         @endcan
                        
                         </td>
                     </tr> 

@@ -5,8 +5,8 @@
  <link href="{{ url('../backend/assets/css/nucleo-svg.css') }}" rel="stylesheet" />
  <link href="{{ url('backend/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
  <!-- Font Awesome Icons -->
- <link rel="apple-touch-icon" sizes="76x76" href="{{ url('../backend/assets/img/apple-icon.png') }}">
- <link rel="icon" type="image/png" href="{{ url('../backend/assets/img/favicon.png') }}">
+ <link rel="apple-touch-icon" sizes="76x76" href="{{ url('backend/Dashboard Template/theme-assets/images/ico/apple-icon-120.png') }}">
+ <link rel="icon" type="image/png" href="{{ url('backend/Dashboard Template/theme-assets/images/ico/favicon.ico') }}">
  <link href="{{ url('../backend/assets/css/nucleo-svg.css') }}" rel="stylesheet" />
 
  <link id="pagestyle" href="{{ url('../backend/assets/css/soft-ui-dashboard.css') }}" rel="stylesheet" />

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginAdminController;
-
+use App\Http\Controllers\PemesananController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +32,10 @@ Route::group([
     Route::get('/akun','AdminController@akun')->name('admin.akun');
     Route::put('/akun','AdminController@updateAkun');
     Route::resource('pemesanan','PemesananController');
+    Route::get('pemesanan/{pemesanan}/success', [PemesananController::class, 'success'])
+    ->name('pemesanan.success');
+    Route::get('pemesanan/{pemesanan}/success/invoice', [PemesananController::class, 'invoice'])
+    ->name('pemesanan.invoice');
     Route::resource('kamar','KamarController');
     Route::resource('kamar.fasilitas','FasilitasKamarController');
     Route::resource('fasilitas','FasilitasHotelController');
@@ -39,9 +43,6 @@ Route::group([
     Route::group(['middleware'=>['can:level,"admin"']], function(){
 
          Route::resource('admin','AdminController');
-       
-        
-     
     });
 
     });

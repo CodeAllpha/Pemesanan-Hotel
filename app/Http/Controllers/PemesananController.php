@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Pemesanan;
 use App\Models\Kamar;
 use App\Helper\Waktu;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PemesananController extends Controller
 {
@@ -35,7 +36,8 @@ class PemesananController extends Controller
                     )
         ->when($search,function($query,$search){
             return $query->where('nama_tamu','like',"%{$search}%")
-                        ->orWhere('nama_pemesan','like',"%{$search}%");
+                        ->orWhere('nama_pemesan','like',"%{$search}%")
+                        ->orWhere('tanggal_checkin','like',"%{$search}%");
         })
         ->orderBy('id','desc')
         ->paginate(10);
@@ -73,7 +75,14 @@ class PemesananController extends Controller
      */
     public function create()
     {
-        //
+        $kamar = Kamar::select('id as value','nama_kamar as option')->get();
+
+        $kamar->map(function($data){
+            $data->option = ucwords($data->option);
+            return $data;
+        });
+
+        return view('pages.pemesanan.create',['kamar'=>$kamar]);
     }
 
     /**
@@ -84,7 +93,72 @@ class PemesananController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+        
+        'nama_pemesan'=> 'required',
+        'nama_tamu'=>'required',
+        'email_pemesan'=>'required',
+        'kamar'=>'required|numeric|integer',
+        'no_hp'=>'required',
+        'tanggal_checkin'=>'required|date|after:today',
+        'tanggal_checkout'=>'required|date|after:tanggal_checkin',
+        'jum_kamar_dipesan'=>'required'
+        ]);
+
+        $pemesanan = Pemesanan::create([
+            'kamar_id'=>$request->kamar,
+            'tanggal_checkin'=>$request->tanggal_checkin,
+            'tanggal_checkout'=>$request->tanggal_checkout,
+            'jum_kamar_dipesan'=>$request->jum_kamar_dipesan,
+            'nama_pemesan'=>$request->nama_pemesan,
+            'email_pemesan'=>$request->email_pemesan,
+            'no_hp'=>$request->no_hp,
+            'nama_tamu'=>$request->nama_tamu,
+            'status'=>'pending'
+        ]);
+
+        return redirect()->route('pemesanan.success',['pemesanan'=>$pemesanan->id])
+        ->with('toast_success','Reservasi Baru Telah Di Tambahkan');
+    }
+
+    public function success(Pemesanan $pemesanan)
+    {
+        return view('pages.pemesanan.success',['data'=>$pemesanan]);
+    }
+
+    public function invoice(Pemesanan $pemesanan)
+    {
+        $kamar = Kamar::find($pemesanan->kamar_id);
+        $pemesanan->nama_pemesan = ucwords($pemesanan->nama_pemesan);
+        $pemesanan->nama_tamu = ucwords($pemesanan->nama_tamu);
+        $pemesanan->tanggal_checkin = date('1,d/m/Y',strtotime($pemesanan->tanggal_checkin));
+        $pemesanan->tanggal_checkout = date('1,d/m/Y',strtotime($pemesanan->tanggal_checkout));
+        $pemesanan->tanggal_dibuat = date('d/m/Y',strtotime($pemesanan->created_at));
+        $total = $kamar->harga_kamar * $pemesanan->jum_kamar_dipesan;
+        $pemesanan->total = number_format($total,0,'.',',');
+
+        $kamar->nama_kamar = ucwords($kamar->nama_kamar);
+        $kamar->harga_kamar = number_format($kamar->harga_kamar,0,'.',',');
+        
+        if($kamar->foto_kamar){
+            $file = 'assets/kamar/'.$kamar->foto_kamar;
+
+            if (file_exists($file)){
+                $kamar->foto_kamar = url($file);
+
+            }else {
+                $kamar->foto_kamar = url('assets/kamar/image.png');
+            }  
+
+            }else {
+                $kamar->foto_kamar = url('assets/kamar/image.png');
+            }
+
+        // $pdf = PDF::loadView('invoice',['data'=>$pemesanan,'kamar'=>$kamar]);
+        // return $pdf->stream();
+
+        return view('invoice',['data'=>$pemesanan,'kamar'=>$kamar]);
+      
     }
 
     /**
@@ -104,7 +178,7 @@ class PemesananController extends Controller
         $kamar->nama_kamar = ucwords($kamar->nama_kamar);
         $bayar = $kamar->harga_kamar * $pemesanan->jum_kamar_dipesan;
         $pemesanan->bayar = number_format($bayar,0,',','.');
-        $pemesanan->tanggal_dibuat = date('d/m/Y H:i:s',strtotime($pemesanan->created_at));
+        $pemesanan->tanggal_dibuat = date('d/m/Y',strtotime($pemesanan->created_at));
         $pemesanan->value_status = $pemesanan->status;
         $pemesanan->status = $this->status($pemesanan->status);
        
@@ -146,7 +220,7 @@ class PemesananController extends Controller
             'status'=>$request->status,
         ]);
 
-        return back();
+        return back()->with('toast_success','Status Pemesanan Berhasil Di Update!');
     }
 
     /**

@@ -1,5 +1,10 @@
 @extends('layouts.main')
 
+@section('title')
+  Pemesanan
+@endsection
+
+
 @section('main-content')
 <div class="app-content content">
     <div class="content-wrapper">
@@ -28,6 +33,7 @@
       <div class="card">
           <div class="card-header">
               <h4 class="card-title">
+                <x-btn-create :link="route('pemesanan.create')"/>
                 </h4>
               <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-2"></i></a>
               <div class="heading-elements">
@@ -56,25 +62,24 @@
                       <tbody>
                     <?php $no = $data->firstItem();?>
                      @forelse ($data as $item)
-                     <tr>
-                        <th scope="row">{{ $no++ }}</th>
-                        <th scope="row">{{ucwords( $item->nama_tamu) }}</th>
-                        <th scope="row">{{ucwords( $item->nama_kamar) }}</th>
-                        <th scope="row">{{ $item->tanggal_checkin }}</th>
-                        <th scope="row">{{ $item->tanggal_checkout }}</th>
-                        <th scope="row">{{ $item->waktu}}</th>
-                        <td scope="row">{{ucwords( $item->status) }}</td>
-                     
-                      
+                     <tr class="">
+                        <th>{{ $no++ }}</th>
+                        <th>{{ucwords( $item->nama_tamu) }}</th>
+                        <th>{{ucwords( $item->nama_kamar) }}</th>
+                        <th>{{ $item->tanggal_checkin }}</th>
+                        <th>{{ $item->tanggal_checkout }}</th>
+                        <th>{{ $item->waktu}}</th>
+                        <th class="text-dark">{{ucwords( $item->status) }}</th>
                         <td>
                           {{-- <a href="{{ route('kamar.fasilitas.index',['kamar'=>$item->id]) }}"
                            class="mr-1"><i class="la la-television"></i>
                           </a> --}}
                           <x-btn-show :link="route('pemesanan.show',['pemesanan'=>$item->id])"/>
-                          {{-- <x-btn-edit :link="route('kamar.edit',['kamar'=>$item->id])"/>
-                          <x-btn-delete :link="route('kamar.destroy',['kamar'=>$item->id])"/>  --}}
-                       
+                          {{-- <x-btn-edit :link="route('kamar.edit',['kamar'=>$item->id])"/> --}}
+                            {{-- <x-btn-delete :link="route('kamar.destroy',['kamar'=>$item->id])"/> 
+                        --}}
                         </td>
+                      
                     </tr> 
 
                      @empty

@@ -1,5 +1,10 @@
 @extends('layouts.main')
 
+@section('title')
+  Fasilitas Kamar Edit
+@endsection
+
+
 @section('main-content')
 <div class="app-content content">
     <div class="content-wrapper">
@@ -24,7 +29,7 @@
      
 <!-- Striped rows start -->
         <x-form-edit :action="route('kamar.fasilitas.update',['kamar'=>$kamar->id,'fasilita'=>$data->id])" :upload="true">
-            <x-input label="Nama Fasilitas Kamar" name="nama_fasilitas_kamar" :value="$data->nama_fasilitas_kamar"/>
+            <x-input label="Nama Fasilitas Kamar" name="nama_fasilitas_kamar" :value="$data->nama_fasilitas_kamar" placeholder="Masukan Nama Fasiitas Kamar"/>
         </x-form-edit>    
 <!-- Striped rows end -->
       </div>
