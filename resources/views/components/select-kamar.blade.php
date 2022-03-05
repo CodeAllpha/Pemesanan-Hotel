@@ -6,7 +6,7 @@ $value = old($name,$value);
 <div class="form-group">
     <label for=""><?= $label?> </label>
     <select name="{{$name}}"
-class="form-control form-control-sm {{ $errors->has($name) ? 'is-invalid':'' }}">
+class="form-control form-control {{ $errors->has($name) ? 'is-invalid':'' }}">
 <option value="">Pilih Kamar</option>
     @foreach ($selectOption as $data)
     @if ($data['value'] == $value)

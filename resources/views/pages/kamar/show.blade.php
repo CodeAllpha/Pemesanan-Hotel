@@ -54,23 +54,55 @@
                       <p>Harga Kamar </p>
                     </div>
                     <div class="col">
-                     <ul>
-                       <li>Rp. {{number_format( $item->harga_kamar,2,'.',',')}}</li>
+                     <ul class="list-unstyled">
+                       <li>Rp. {{number_format( $item->harga_kamar,0,'.',',')}}</li>
                      </ul>
                     </div>
                     <div class="col-md-6">
                       <p>Jumlah Kamar</p>
                     </div>
                     <div class="col">
-                     <ul>
+                     <ul class="list-unstyled">
                        <li>{{ $item->jumlah_kamar }}</li>
                      </ul>
                     </div>
                     <div class="col-md-6">
+                      <p>Type Kamar</p>
+                    </div>
+                    <div class="col">
+                     <ul class="list-unstyled">
+                       <li>{{ $item->type_kamar }}</li>
+                     </ul>
+                    </div>
+                    <div class="col-md-6">
+                      <p>Luas Kamar</p>
+                    </div>
+                    <div class="col">
+                     <ul class="list-unstyled">
+                       <li>{{ $item->luas_kamar }} sqm</li>
+                     </ul>
+                    </div>
+                    <div class="col-md-6">
+                      <p>Type Kasur</p>
+                    </div>
+                    <div class="col">
+                     <ul class="list-unstyled">
+                       <li>{{ $item->type_kasur }}</li>
+                     </ul>
+                    </div>  
+                    <div class="col-md-6">
+                      <p>Lebar & Panjang Kasur</p>
+                    </div>
+                    <div class="col">
+                     <ul class="list-unstyled">
+                       <li>{{ $item->panjang_kasur }} x {{ $item->lebar_kasur }} cm</li>
+                     </ul>
+                    </div>   
+                    <div class="col-md-6">
                       <p>Fasilitas Kamar</p>
                     </div>  
                     <div class="col">
-                      <ul>
+                      <ul class="list-unstyled">
                       @foreach ($fasilitas as $item)
                       <li>{{ $item->nama_fasilitas_kamar }}
                       </li>

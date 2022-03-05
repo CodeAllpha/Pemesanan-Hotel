@@ -81,6 +81,7 @@
                      <div class="col-md-6">
                         <p>Rp.{{ $pemesanan->bayar }}</p>
                      </div>
+                 
                      <div class="col-md-6">
                         <p>Status</p>
                      </div>
@@ -141,6 +142,12 @@
                      </div>
                      <div class="col-md-6">
                         <p>{{ $pemesanan->tanggal_dibuat }}</p>
+                     </div>
+                     <div class="col-md-6">
+                        <p>Spesial Request</p>
+                     </div>
+                     <div class="col-md-6">
+                        <p>{{ $pemesanan->spesial_request }}</p>
                      </div>
                    </div>
                    <br>

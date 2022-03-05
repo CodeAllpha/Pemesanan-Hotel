@@ -30,8 +30,7 @@
             <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">             <span class="avatar avatar-online"><img src="{{ url('backend/Dashboard Template/theme-assets/images/portrait/small/avatar-s-19.png') }}" alt="avatar"><i></i></span></a>
               <div class="dropdown-menu dropdown-menu-right">
                 <div class="arrow_box_right"><a class="dropdown-item" href="#"><span class="avatar avatar-online"><img src="{{ url('backend/Dashboard Template/theme-assets/images/portrait/small/avatar-s-19.png') }}" alt="avatar"><span class="user-name text-bold-700 ml-1">  {{ Auth::user()->username }}</span></span></a>
-                  <div class="dropdown-divider"></div><a class="dropdown-item" href="{{ route('admin.akun') }}"><i class="ft-user"></i> My Profile</a><a class="dropdown-item" href="#"><i class="ft-mail"></i> My Inbox</a><a class="dropdown-item" href="#"><i class="ft-check-square"></i> Task</a><a class="dropdown-item" href="#"><i class="ft-message-square"></i> Chats</a>
-                  <div class="dropdown-divider"></div>  
+                  <div class="dropdown-divider"></div><a class="dropdown-item" href="{{ route('admin.akun') }}"><i class="ft-user"></i> My Profile</a><a class="dropdown-item" href="#"><i class="ft-mail"></i> My Inbox</a>
                   <a class="dropdown-item" href="{{ route('admin.logout') }}"
                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                   <i class="ft-power"></i> Logout

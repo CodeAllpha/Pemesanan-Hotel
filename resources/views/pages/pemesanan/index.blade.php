@@ -54,7 +54,6 @@
                               <th>Kamar</th>
                               <th>Check In</th>
                               <th>Check Out</th>
-                              <th>Malam</th>
                               <th>Status</th>
                               <th>Action</th>
                           </tr>
@@ -68,16 +67,18 @@
                         <th>{{ucwords( $item->nama_kamar) }}</th>
                         <th>{{ $item->tanggal_checkin }}</th>
                         <th>{{ $item->tanggal_checkout }}</th>
-                        <th>{{ $item->waktu}}</th>
+                     
                         <th class="text-dark">{{ucwords( $item->status) }}</th>
                         <td>
                           {{-- <a href="{{ route('kamar.fasilitas.index',['kamar'=>$item->id]) }}"
                            class="mr-1"><i class="la la-television"></i>
                           </a> --}}
                           <x-btn-show :link="route('pemesanan.show',['pemesanan'=>$item->id])"/>
-                          {{-- <x-btn-edit :link="route('kamar.edit',['kamar'=>$item->id])"/> --}}
-                            {{-- <x-btn-delete :link="route('kamar.destroy',['kamar'=>$item->id])"/> 
-                        --}}
+                            @can('level','admin')
+                            <x-btn-delete :link="route('pemesanan.destroy',['pemesanan'=>$item->id])"/> 
+                            @endcan
+                        
+                       
                         </td>
                       
                     </tr> 

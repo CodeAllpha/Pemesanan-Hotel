@@ -16,6 +16,11 @@ class KamarFactory extends Factory
         return [
 
             'nama_kamar'=>$this->faker->word(),
+            'type_kamar'=>$this->faker->word(),
+            'type_kasur'=>$this->faker->word(),
+            'panjang_kasur'=>rand(10,20),
+            'lebar_kasur'=>rand(10,20),
+            'luas_kamar'=>rand(25,45),
             'jumlah_kamar'=>rand(5,10),
             'harga_kamar'=>$this->faker->numberBetween(500000,700000),
             'deskripsi_kamar'=>$this->faker->paragraph(),

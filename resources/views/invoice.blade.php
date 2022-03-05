@@ -84,7 +84,7 @@
                         <tr>
                             <td>
                                 <div class="media">
-                                    <img src="#" class="mr-3" alt="...">
+                                    <img src="{{ $kamar->foto_kamar }}" class="mr-3" alt="...">
                                     <div class="media-body">
                                       <p class="mt-0 title">Nama Kamar
                                       </p>

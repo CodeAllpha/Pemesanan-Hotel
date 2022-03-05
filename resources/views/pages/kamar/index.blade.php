@@ -53,6 +53,7 @@
                           <tr>
                               <th scope="col">No</th>
                               <th scope="col">Nama Kamar</th>
+                              <th scope="col">Type Kamar</th>
                               <th scope="col">Harga Kamar</th>
                               <th scope="col">Jumlah</th>
                               <th scope="col">Action</th>
@@ -64,6 +65,7 @@
                      <tr>
                         <th scope="row">{{ $no++ }}</th>
                         <th scope="row">{{ucwords( $item->nama_kamar) }}</th>
+                        <th scope="row">{{ucwords( $item->type_kamar) }}</th>
                         <td scope="row">Rp. {{number_format( $item->harga_kamar,2,'.',',')}}</td>
                         <td scope="row">{{ $item->jumlah_kamar }}</td>
                       

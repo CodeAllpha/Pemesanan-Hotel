@@ -21,6 +21,8 @@ class CreatePemesanansTable extends Migration
             ->onUpdate('cascade')
             ->onDelete('set null');
             $table->date('tanggal_checkin');
+            $table->integer('users_id')->nullable();
+            $table->text('spesial_request');
             $table->date('tanggal_checkout');
             $table->integer('jum_kamar_dipesan');
             $table->string('nama_pemesan');

@@ -13,6 +13,7 @@ class Pemesanan extends Model
         'kamar_id',
         'tanggal_checkin',
         'tanggal_checkout',
+        'spesial_request',
         'jum_kamar_dipesan',
         'nama_pemesan',
         'email_pemesan',
@@ -20,4 +21,14 @@ class Pemesanan extends Model
         'nama_tamu',
         'status'
     ];
+
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function kamar(){
+        return $this->belongsTo(Kamar::class);
+        
+    }
 }

@@ -7,7 +7,7 @@
     <meta name="description" content="Chameleon Admin is a modern Bootstrap 4 webapp &amp; admin dashboard html template with a large number of components, elegant design, clean and organized code.">
     <meta name="keywords" content="admin template, Chameleon admin template, dashboard template, gradient admin template, responsive admin template, webapp, eCommerce dashboard, analytic dashboard">
     <meta name="author" content="ThemeSelect">
-    <title>Dashboard - Beta Hotel</title>
+    <title>Dashboard - Ganyu Hotel</title>
     @include('includes.admin.style')
     @stack('css')
     <!-- END Page Level CSS-->

@@ -24,6 +24,7 @@ class PemesananFactory extends Factory
             'tanggal_checkout'=>$checkin,
             'jum_kamar_dipesan'=>rand(1,3),
             'nama_pemesan'=>$this->faker->name(),
+            'spesial_request'=>$this->faker->paragraph(),
             'email_pemesan'=>$this->faker->freeEmail(),
             'no_hp'=>$this->faker->phoneNumber(),
             'nama_tamu'=>$this->faker->name(),

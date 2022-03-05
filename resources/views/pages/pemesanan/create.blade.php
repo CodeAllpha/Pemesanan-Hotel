@@ -47,6 +47,9 @@
             <x-input label="Check OUT" name="tanggal_checkout" type="date" placeholder="Masukan Tanggal Checkout"/>
             <x-input label="Jumlah Kamar" name="jum_kamar_dipesan" type="text" placeholder="Masukan Jumlah Kamar"/>   
             </div>
+            <div class="col-md-12">
+              <x-textarea label="Spesial Request" type="text" name="spesial_request" placeholder="Masukan Spesial Request"/>
+            </div>
          </div>
         </x-form-create>    
 <!-- Striped rows end -->

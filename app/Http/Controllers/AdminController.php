@@ -48,8 +48,8 @@ class AdminController extends Controller
     {
         $request->validate([
 
-            'name' => 'required',
-            'username' => 'required|alpha_dash|unique:admins',
+            'name' => 'required|max:40|regex:/^[a-zA-ZÑñ\s\.]+$/|unique:admins',
+            'username' =>  'required|max:40|regex:/^[a-zA-ZÑñ\s\.]+$/|alpha_dash|unique:admins',
             'password' => 'required|confirmed|min:4',
         ]);
 
@@ -95,8 +95,8 @@ class AdminController extends Controller
     public function update(Request $request, Admin $admin)
     {
         $request->validate([
-            'name' => 'required',
-            'username' => "required|alpha_dash|unique:admins,username,{$admin->id}",
+            'name' => "required|max:40|regex:/^[a-zA-ZÑñ\s\.]+$/|unique:admins,name,{$admin->id}",
+            'username' => "required|max:40|regex:/^[a-zA-ZÑñ\s\.]+$/|alpha_dash|unique:admins,username,{$admin->id}",
             'password' => 'nullable|confirmed|min:4',
         ]);
 
@@ -143,8 +143,8 @@ class AdminController extends Controller
       
         $admin = Auth::user();
           $request->validate([
-            'name' => 'required',
-            'username' => "required|alpha_dash|unique:admins,username,{$admin->id}",
+            'name' => "required|max:40|regex:/^[a-zA-ZÑñ\s\.]+$/|unique:admins,name,{$admin->id}",
+            'username' => "required|max:40|regex:/^[a-zA-ZÑñ\s\.]+$/|unique:admins,username,{$admin->id}",
             'password' => 'nullable|confirmed|min:4',
         ]);
 

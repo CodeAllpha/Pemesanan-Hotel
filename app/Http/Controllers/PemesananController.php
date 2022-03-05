@@ -10,6 +10,15 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class PemesananController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('can:level,"admin"',[
+            'except'=>['index','show','create']
+        ]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -30,6 +39,7 @@ class PemesananController extends Controller
                     'nama_kamar',
                     'email_pemesan',
                     'no_hp',
+                    'spesial_request',
                     'nama_tamu',
                     'status'
                         
@@ -95,14 +105,16 @@ class PemesananController extends Controller
     {
         $request->validate([
         
-        'nama_pemesan'=> 'required',
-        'nama_tamu'=>'required',
-        'email_pemesan'=>'required',
-        'kamar'=>'required|numeric|integer',
-        'no_hp'=>'required',
+        'nama_pemesan'=> 'required|max:40|regex:/^[a-zA-ZÑñ\s\.]+$/',
+        'nama_tamu'=> 'required|max:40|regex:/^[a-zA-ZÑñ\s\.]+$/',
+        'email_pemesan'=>'required|email',
+        'kamar'=>'required|numeric|integer|min:1|max:5',
+        'no_hp'=>'required|numeric',
         'tanggal_checkin'=>'required|date|after:today',
         'tanggal_checkout'=>'required|date|after:tanggal_checkin',
-        'jum_kamar_dipesan'=>'required'
+        'jum_kamar_dipesan'=>'required|integer|min:1|max:5',
+        'spesial_request'=>'required|string|max:200',
+
         ]);
 
         $pemesanan = Pemesanan::create([
@@ -113,6 +125,7 @@ class PemesananController extends Controller
             'nama_pemesan'=>$request->nama_pemesan,
             'email_pemesan'=>$request->email_pemesan,
             'no_hp'=>$request->no_hp,
+            'spesial_request'=>$request->spesial_request,
             'nama_tamu'=>$request->nama_tamu,
             'status'=>'pending'
         ]);
@@ -136,7 +149,6 @@ class PemesananController extends Controller
         $pemesanan->tanggal_dibuat = date('d/m/Y',strtotime($pemesanan->created_at));
         $total = $kamar->harga_kamar * $pemesanan->jum_kamar_dipesan;
         $pemesanan->total = number_format($total,0,'.',',');
-
         $kamar->nama_kamar = ucwords($kamar->nama_kamar);
         $kamar->harga_kamar = number_format($kamar->harga_kamar,0,'.',',');
         
@@ -229,8 +241,9 @@ class PemesananController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Pemesanan $pemesanan)
     {
-        //
+        $pemesanan->delete();
+        return redirect()->route('pemesanan.index')->with('toast_success', 'Data Berhasil Di Hapus!');
     }
 }

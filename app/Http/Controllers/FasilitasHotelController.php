@@ -46,9 +46,9 @@ class FasilitasHotelController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_fasilitas_hotel' => 'required',
+            'nama_fasilitas_hotel' => 'required|max:40|regex:/^[a-zA-ZÑñ\s\.]+$/|unique:fasilitas_hotels',
             'foto_fasilitas_hotel' => 'required|image|mimes:png,jpg,jpeg|between:100,20042',
-            'deskripsi_fasilitas_hotel' => 'nullable',
+            'deskripsi_fasilitas_hotel' => 'nullable|max:1000|min:1',
         ]);
 
         
@@ -117,9 +117,9 @@ class FasilitasHotelController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nama_fasilitas_hotel' => 'required',
+            'nama_fasilitas_hotel' => "required|max:40|regex:/^[a-zA-ZÑñ\s\.]+$/|unique:fasilitas_hotels,nama_fasilitas_hotel,{$id}",
             'foto_fasilitas_hotel' => 'nullable|image|mimes:png,jpg,jpeg|between:100,20042',
-            'deskripsi_fasilitas_hotel' => 'nullable',
+            'deskripsi_fasilitas_hotel' => 'nullable|max:1000|min:1',
         ]);
 
 

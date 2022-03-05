@@ -40,7 +40,7 @@ class FasilitasKamarController extends Controller
     public function store(Request $request ,Kamar $kamar)
     {
         $request->validate([
-            'nama_fasilitas_kamar' => 'required'
+            'nama_fasilitas_kamar' =>'required|max:40|regex:/^[a-zA-ZÑñ\s\.]+$/',
         ]);
 
         FasilitasKamar::create([
@@ -83,7 +83,7 @@ class FasilitasKamarController extends Controller
     public function update(Request $request, Kamar $kamar,FasilitasKamar $fasilita)
     {
         $request->validate([
-            'nama_fasilitas_kamar' => 'required'
+            'nama_fasilitas_kamar' => 'required|max:40|regex:/^[a-zA-ZÑñ\s\.]+$/',
         ]);
 
         $fasilita->update([

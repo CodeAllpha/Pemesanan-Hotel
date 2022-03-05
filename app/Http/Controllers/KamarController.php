@@ -28,10 +28,11 @@ class KamarController extends Controller
 
         $search = $request->search;
 
-        $data = Kamar::select('id','nama_kamar','jumlah_kamar','harga_kamar','foto_kamar')
+        $data = Kamar::select('id','nama_kamar','jumlah_kamar','harga_kamar','foto_kamar','type_kamar')
                     ->when($search,function($query,$search){
                         return $query->where('nama_kamar','like',"%{$search}%")
-                                    ->orWhere('harga_kamar','like',"%{$search}%");
+                                    ->orWhere('harga_kamar','like',"%{$search}%")
+                                    ->orWhere('type_kamar','like',"%{$search}%");
                     })
                     ->paginate(10);
 
@@ -58,16 +59,26 @@ class KamarController extends Controller
     {
         $request->validate([
 
-            'nama_kamar' => 'required',
-            'foto_kamar' => 'required|image|mimes:png,jpg,jpeg|between:100,20042',
-            'jumlah_kamar' => 'required',
-            'harga_kamar' => 'required',
-            'deskripsi_kamar' => 'required|min:3'
+            'nama_kamar' => 'required|max:40|regex:/^[a-zA-ZÑñ\s\.]+$/|unique:kamars',
+            'type_kamar'=>'required|max:20|regex:/^[a-zA-ZÑñ\s\.]+$/|unique:kamars',
+            'type_kasur'=>'required|max:20|regex:/^[a-zA-ZÑñ\s\.]+$/',
+            'luas_kamar'=> 'required|integer|min:10|max:100',
+            'panjang_kasur'=> 'required|integer|min:10|max:100',
+            'lebar_kasur'=>'required|integer|min:10|max:100',
+            'foto_kamar' => 'required|image|mimes:png,jpg,jpeg|between:10,20042',
+            'jumlah_kamar' => 'required|integer|min:1|max:50',
+            'harga_kamar' => 'required|integer|min:500000',
+            'deskripsi_kamar' =>'required|max:500|regex:/^[a-zA-ZÑñ\s\.]+$/',
         ]);
 
 
         $data = new Kamar;
         $data->nama_kamar = $request->input('nama_kamar');
+        $data->type_kamar = $request->input('type_kamar');
+        $data->luas_kamar = $request->input('luas_kamar');
+        $data->type_kasur = $request->input('type_kasur');
+        $data->panjang_kasur = $request->input('panjang_kasur');
+        $data->lebar_kasur = $request->input('lebar_kasur');
         $data->harga_kamar = $request->input('harga_kamar');
         $data->jumlah_kamar = $request->input('jumlah_kamar');
         $data->deskripsi_kamar = $request->input('deskripsi_kamar');
@@ -146,19 +157,29 @@ class KamarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
         $request->validate([
-            'nama_kamar' => 'required',
-            'foto_kamar' => 'nullable|image|mimes:png,jpg,jpeg|between:100,20042',
-            'jumlah_kamar' => 'required',
-            'harga_kamar' => 'required',
-            'deskripsi_kamar' => 'required|min:3'
+            'nama_kamar' => "required|max:40|regex:/^[a-zA-ZÑñ\s\.]+$/|unique:kamars,nama_kamar,{$id}",
+            'type_kamar'=>"required|max:20|regex:/^[a-zA-ZÑñ\s\.]+$/|unique:kamars,type_kamar,{$id}",
+            'type_kasur'=>'required|max:20|regex:/^[a-zA-ZÑñ\s\.]+$/',
+            'luas_kamar'=> 'required|integer|min:10|max:100',
+            'panjang_kasur'=> 'required|integer|min:10|max:100',
+            'lebar_kasur'=>'required|integer|min:10|max:100',
+            'foto_kamar' => 'nullable|image|mimes:png,jpg,jpeg|between:10,20042',
+            'jumlah_kamar' => 'required|integer|min:1|max:50',
+            'harga_kamar' => 'required|integer|min:50000',
+            'deskripsi_kamar' => 'required|string',
         ]);
 
 
         $data = Kamar::find($id);
         $data->nama_kamar = $request->input('nama_kamar');
+        $data->type_kamar = $request->input('type_kamar');
+        $data->luas_kamar = $request->input('luas_kamar');
+        $data->type_kasur = $request->input('type_kasur');
+        $data->panjang_kasur = $request->input('panjang_kasur');
+        $data->lebar_kasur = $request->input('lebar_kasur');
         $data->harga_kamar = $request->input('harga_kamar');
         $data->jumlah_kamar = $request->input('jumlah_kamar');
         $data->deskripsi_kamar = $request->input('deskripsi_kamar');

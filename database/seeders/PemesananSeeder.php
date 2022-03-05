@@ -14,6 +14,6 @@ class PemesananSeeder extends Seeder
      */
     public function run()
     {
-       Pemesanan::factory(20)->create();
+       Pemesanan::factory(5)->create();
     }
 }
