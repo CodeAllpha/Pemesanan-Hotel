@@ -1,7 +1,7 @@
 @props(['label','link'])
 <?php
 $path = trim(str_replace(url('/'),'',$link),'/');
-$wildchar = $path == '' ? '' : '*';
+$wildchar = $path == '/' ? '' : '*';
 $is = request()->is($path.$wildchar);
 ?>
 

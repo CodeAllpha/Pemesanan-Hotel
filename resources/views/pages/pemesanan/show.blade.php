@@ -19,7 +19,7 @@
               <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a>
                 </li>
-                <li class="breadcrumb-item active"><a href="{{ route('kamar.index') }}">Pemesanan</a>
+                <li class="breadcrumb-item active"><a href="{{ route('pemesanan.index') }}">Pemesanan</a>
                 </li>
               </ol>
             </div>
@@ -58,10 +58,10 @@
                         <p>{{ $kamar->nama_kamar }}</p>
                      </div>
                      <div class="col-md-6">
-                        <p>Jumlah</p>
+                        <p>Jumlah Kamar Di Pesan</p>
                      </div>
                      <div class="col-md-6">
-                        <p>{{ $kamar->jumlah_kamar }}</p>
+                        <p>{{ $pemesanan->jum_kamar_dipesan }}</p>
                      </div>
                      <div class="col-md-6">
                         <p>Check In / Check Out</p>

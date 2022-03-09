@@ -19,10 +19,10 @@ class CreatePemesanansTable extends Migration
             ->nullable()
             ->constrained('kamars')
             ->onUpdate('cascade')
-            ->onDelete('set null');
+            ->onDelete('cascade');
             $table->date('tanggal_checkin');
             $table->integer('users_id')->nullable();
-            $table->text('spesial_request');
+            $table->text('spesial_request')->nullable();
             $table->date('tanggal_checkout');
             $table->integer('jum_kamar_dipesan');
             $table->string('nama_pemesan');

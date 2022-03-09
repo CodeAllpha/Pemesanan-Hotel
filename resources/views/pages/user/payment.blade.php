@@ -9,13 +9,13 @@
                         <nav>
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    Details
+                                    <a href="{{ route('detail',['kamar'=>$kamar->id]) }}" class="text-dark">Details</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    Checkout
+                                    <a href="{{ route('checkout',['kamar'=>$kamar->id]) }}" class="text-dark">Checkout</a>
                                 </li>
                                 <li class="breadcrumb-item active">
-                                    Payments
+                                    <a href="{{ route('payment',['pemesanan'=>$pemesanan->id]) }}" class="text-dark">Payments</a>
                                 </li>
                             </ol>
                         </nav>

@@ -113,7 +113,7 @@ class PemesananController extends Controller
         'tanggal_checkin'=>'required|date|after:today',
         'tanggal_checkout'=>'required|date|after:tanggal_checkin',
         'jum_kamar_dipesan'=>'required|integer|min:1|max:5',
-        'spesial_request'=>'required|string|max:200',
+        'spesial_request'=>'nullable|string|max:400',
 
         ]);
 
@@ -147,7 +147,7 @@ class PemesananController extends Controller
         $pemesanan->tanggal_checkin = date('1,d/m/Y',strtotime($pemesanan->tanggal_checkin));
         $pemesanan->tanggal_checkout = date('1,d/m/Y',strtotime($pemesanan->tanggal_checkout));
         $pemesanan->tanggal_dibuat = date('d/m/Y',strtotime($pemesanan->created_at));
-        $total = $kamar->harga_kamar * $pemesanan->jum_kamar_dipesan;
+        $total = $kamar->harga_kamar * $pemesanan->jum_kamar_dipesan ;
         $pemesanan->total = number_format($total,0,'.',',');
         $kamar->nama_kamar = ucwords($kamar->nama_kamar);
         $kamar->harga_kamar = number_format($kamar->harga_kamar,0,'.',',');
@@ -188,7 +188,7 @@ class PemesananController extends Controller
         $pemesanan->tanggal_checkin = date('d/m/Y',strtotime($pemesanan->tanggal_checkin));
         $pemesanan->tanggal_checkout = date('d/m/Y',strtotime($pemesanan->tanggal_checkout));
         $kamar->nama_kamar = ucwords($kamar->nama_kamar);
-        $bayar = $kamar->harga_kamar * $pemesanan->jum_kamar_dipesan;
+        $bayar = $kamar->harga_kamar * $pemesanan->jum_kamar_dipesan * $pemesanan->waktu;
         $pemesanan->bayar = number_format($bayar,0,',','.');
         $pemesanan->tanggal_dibuat = date('d/m/Y',strtotime($pemesanan->created_at));
         $pemesanan->value_status = $pemesanan->status;

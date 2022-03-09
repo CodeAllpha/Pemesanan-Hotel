@@ -59,6 +59,7 @@ Route::get('home','LandingController@index')->name('landing');
 Route::get('/room/detail/{kamar}','DetailController@index')->name('detail');
 
 Route::get('/room','DetailController@room')->name('room');
+Route::get('/room/search/','DetailController@search')->name('search');
 
 Route::get('/facilities','FacilitiesController@facilities')->name('facilities');
 

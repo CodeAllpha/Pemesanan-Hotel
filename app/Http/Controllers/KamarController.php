@@ -62,13 +62,13 @@ class KamarController extends Controller
             'nama_kamar' => 'required|max:40|regex:/^[a-zA-ZÑñ\s\.]+$/|unique:kamars',
             'type_kamar'=>'required|max:20|regex:/^[a-zA-ZÑñ\s\.]+$/|unique:kamars',
             'type_kasur'=>'required|max:20|regex:/^[a-zA-ZÑñ\s\.]+$/',
-            'luas_kamar'=> 'required|integer|min:10|max:100',
-            'panjang_kasur'=> 'required|integer|min:10|max:100',
-            'lebar_kasur'=>'required|integer|min:10|max:100',
+            'luas_kamar'=> 'required|integer|min:10|max:300',
+            'panjang_kasur'=> 'required|integer|min:30|max:300',
+            'lebar_kasur'=>'required|integer|min:30|max:100',
             'foto_kamar' => 'required|image|mimes:png,jpg,jpeg|between:10,20042',
             'jumlah_kamar' => 'required|integer|min:1|max:50',
             'harga_kamar' => 'required|integer|min:500000',
-            'deskripsi_kamar' =>'required|max:500|regex:/^[a-zA-ZÑñ\s\.]+$/',
+            'deskripsi_kamar' =>'required|string|max:1000',
         ]);
 
 

@@ -37,14 +37,14 @@
                 <h2 class="text-center">Berhasil Reservasi</h2>
                 <p class="text-center">Terima Kasih Telah Melakukan Resrvasi</p>
             <div class="text-center">
-                <img src="{{ url('assets/hotel/image.png') }}" alt="Gambar Invoice" class="img-fluid justify-content-center height-250">
+                <img src="{{ asset('frontend/images/success.png') }}" alt="Gambar Invoice" class="img-fluid justify-content-center height-250">
             </div>
             </div>
             <div class="card-footer">
                 <h5 class="text-center">Untuk Selanjutnya Silahkan Cetak Invoice</h5>
                 <br>
                <div class="text-center">
-                <a href="{{ route('pemesanan.invoice',['pemesanan'=>$data->id]) }}" class="btn btn-primary btn-md">Lihat Invoice</a>
+                <a href="{{ route('pemesanan.invoice',['pemesanan'=>$data->id]) }}" class="btn btn-primary btn-md">Cetak Invoice</a>
                </div>
             </div>
         </div>

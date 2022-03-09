@@ -4,7 +4,7 @@
 <main>
 
 
-    <!-- <section class="section-contact-us">
+    <section class="section-contact-us">
         <div class="container">
             <div class="row">
                 <div class="col text-center">
@@ -16,7 +16,7 @@
                 </div>
             </div>
         </div>
-    </section> -->
+    </section>
 
       <div class="container contact-us">
         <div class="content">
@@ -52,7 +52,7 @@
               <textarea placeholder="Enter your message"></textarea>
             </div>
             <div class="button">
-              <input type="button" value="Send Now" >
+              <input type="button" class="btn" value="Send Now">
             </div>
           </form>
         </div>

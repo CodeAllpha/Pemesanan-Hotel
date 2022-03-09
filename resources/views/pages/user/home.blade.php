@@ -22,19 +22,17 @@
     <!-- Booking -->
    <section class="booking-content">
        <div class="container col-lg-10">
-           @foreach ($kamar as $items)
-           <form method="get" action="{{ route('checkout',['kamar'=>$items->id]) }}" class="row bg-white booking-stat py-3 px-1 booking border 
+         
+           <form method="GET" action="{{ route('search') }}" class="row bg-white booking-stat py-3 px-1 booking border 
             shadow" style="border-radius: 5px;">
-            @endforeach
-            @csrf
                <div class="col-lg-3 mt-1 mb-1">
                    <div class="input-group">
-                       <input type="text" class="form-control rounded" maxlength="30" placeholder="Nama Tamu" name="nama_tamu">
+                    <input type="text" class="form-control rounded" maxlength="30" placeholder="Room Name" id="search" name="search" value="{{ request()->search }}">
                    </div>
                </div>
                <div class="col-lg-3 mt-1 mb-1">
                   <div class="input-group">
-                    <x-select-kamar-home label="Kamar" name="kamar" :select-option="$kamar"/>
+                    <input type="text" class="form-control rounded" maxlength="30" placeholder="Room Type" name="nama_kamar">
                   </div>
                </div>
                <div class="col-lg-2 mt-1 mb-1">
@@ -48,47 +46,13 @@
                    </div>
                </div>
                <div class="col-md-2 mt-1 mb-1">
-                   <button type="submit" class="btn btn-block btn-booking">Booking Now</button>
+                   <button type="submit" class="btn btn-block btn-booking">Search</button>
                </div>
            </form>
          
       </div>
      </section>
 
-
-     {{-- <section class="booking-content">
-       <div class="container col-lg-10">
-           <form method="get" action="" class="row bg-white booking-stat py-3 px-1 booking border 
-            shadow" style="border-radius: 5px;">
-            @csrf
-               <div class="col-lg-3 mt-1 mb-1">
-                   <div class="input-group">
-                       <input type="text" class="form-control rounded" maxlength="30" placeholder="Room Name" name="nama_tamu">
-                   </div>
-               </div>
-               <div class="col-lg-3 mt-1 mb-1">
-                <div class="input-group">
-                    <input type="text" class="form-control rounded" maxlength="30" placeholder="Room Type" name="nama_tamu">
-                </div>
-               </div>
-               <div class="col-lg-2 mt-1 mb-1">
-                <div class="input-group">
-                    <input type="text" class="form-control rounded" maxlength="30" placeholder="Bed Type" name="nama_tamu">
-                </div>
-               </div>
-               <div class="col-lg-2 mt-1 mb-1">
-                <div class="input-group">
-                    <input type="text" class="form-control rounded" maxlength="30" placeholder="Room Facilities" name="nama_tamu">
-                </div>
-               </div>
-            
-          
-               <div class="col-md-2 mt-1 mb-1">
-                   <button type="submit" class="btn btn-block btn-booking">Search</button>
-               </div>
-           </form>
-      </div>
-     </section> --}}
 
     <!-- Section Heading Kamar -->
     <section class="section-kamar" id="kamar">
@@ -202,8 +166,8 @@
                <div class="col-sm-6 col-md col-lg-4">
                    <div class="card shadow card-testimonial text-center">
                        <div class="testimonial-content">
-                           <img src="frontend/images/testi1.jpg" alt="" class="mb-4 rounded-circle">
-                           <h3 class="mb-4">Ganyu</h3>
+                           <img src="{{ asset('frontend/images/icons1.png') }}" alt="" class="mb-4 rounded-circle">
+                           <h3 class="mb-4">Mark</h3>
                            <p class="testimonial">
                               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Similique, repellendus!
                            </p>
@@ -217,8 +181,8 @@
                <div class="col-sm-6 col-md col-lg-4">
                    <div class="card shadow card-testimonial text-center">
                        <div class="testimonial-content">
-                           <img src="frontend/images/testi2.jpg" alt="" class="mb-4 rounded-circle">
-                           <h3 class="mb-4">Hu Tao</h3>
+                           <img src="{{ asset('frontend/images/icons2.png') }}" alt="" class="mb-4 rounded-circle">
+                           <h3 class="mb-4">Jack</h3>
                            <p class="testimonial">
                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate, mollitia?
                            </p>
@@ -232,8 +196,8 @@
                <div class="col-sm-6 col-md col-lg-4">
                    <div class="card shadow card-testimonial text-center">
                        <div class="testimonial-content">
-                           <img src="frontend/images/testi3.jpg" alt="" class="mb-4 rounded-circle">
-                           <h3 class="mb-4">Eula</h3>
+                           <img src="{{ asset('frontend/images/icons3.png') }}" alt="" class="mb-4 rounded-circle">
+                           <h3 class="mb-4">Anastasya</h3>
                            <p class="testimonial">
                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas, illo.
                            </p>
@@ -243,11 +207,12 @@
                            Superior Rooms
                        </p>
                    </div>
+                   
                </div>
            </div>
            <div class="row">
                <div class="col-12 text-center">
-                   <a href="" class="btn shadow btn-need-help px-4 mt-4 mx-1">
+                   <a href="{{ route('contact') }}" class="btn shadow btn-need-help px-4 mt-4 mx-1">
                        I Need Help
                    </a>
                    <a href="{{ route('landing') }}" class="btn shadow btn-get-started px-4 mt-4 mx-1">
