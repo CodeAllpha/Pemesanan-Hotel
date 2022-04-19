@@ -71,7 +71,7 @@
                     </div>
                     <div class="col">
                      <ul class="list-unstyled">
-                       <li>{{ $item->type_kamar }}</li>
+                       <li>{{ $item->kapasitas }}</li>
                      </ul>
                     </div>
                     <div class="col-md-6">
@@ -87,7 +87,7 @@
                     </div>
                     <div class="col">
                      <ul class="list-unstyled">
-                       <li>{{ $item->type_kasur }}</li>
+                       <li>{{ $item->tipe_kasur }}</li>
                      </ul>
                     </div>  
                     <div class="col-md-6">

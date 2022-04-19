@@ -14,8 +14,9 @@ class Kamar extends Model
     protected $fillable = [
 
         'nama_kamar',
-        'type_kamar',
-        'type_kasur',
+        'kapasitas',
+        'kamar_kosong',
+        'tipe_kasur',
         'panjang_kasur',
         'lebar_kasur',
         'luas_kamar',

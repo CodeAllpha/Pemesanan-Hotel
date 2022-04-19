@@ -20,20 +20,22 @@
         </header>
 
     <!-- Booking -->
-   <section class="booking-content">
-       <div class="container col-lg-10">
+   <div class="container">
+    <section class="booking-content">
+        <div class="col-lg-12">
+          
          
-           <form method="GET" action="{{ route('search') }}" class="row bg-white booking-stat py-3 px-1 booking border 
+        
+         <form method="GET" action="" class="row bg-white booking-stat py-3 px-1 booking border 
             shadow" style="border-radius: 5px;">
+            @csrf
                <div class="col-lg-3 mt-1 mb-1">
                    <div class="input-group">
-                    <input type="text" class="form-control rounded" maxlength="30" placeholder="Room Name" id="search" name="search" value="{{ request()->search }}">
+                    <input type="text" class="form-control rounded" maxlength="30" placeholder="Guest Name"  name="nama_tamu" value="{{ request()->search }}">
                    </div>
                </div>
                <div class="col-lg-3 mt-1 mb-1">
-                  <div class="input-group">
-                    <input type="text" class="form-control rounded" maxlength="30" placeholder="Room Type" name="nama_kamar">
-                  </div>
+                <x-select-kamar-home label="Kamar" name="kamar" :select-option="$kamar"/>
                </div>
                <div class="col-lg-2 mt-1 mb-1">
                    <div class="input-group">
@@ -46,12 +48,15 @@
                    </div>
                </div>
                <div class="col-md-2 mt-1 mb-1">
-                   <button type="submit" class="btn btn-block btn-booking">Search</button>
+                   <button type="submit" class="btn btn-block btn-booking">Check In Now</button>
                </div>
            </form>
-         
-      </div>
-     </section>
+       
+          
+          
+       </div>
+      </section>
+   </div>
 
 
     <!-- Section Heading Kamar -->
@@ -60,7 +65,7 @@
            <div class="row">
                <div class="col text-center section-kamar-heading">
                    <h2>Our Offers</h2>
-                   <p>We offer a comfortable place for you 
+                   <p>We offer a comfortable room for you 
                        <br>
                      
                    </p>
@@ -82,7 +87,7 @@
                      <div class="hotel-name">Beta Hotel</div>
                      <div class="room-name">{{ $items->nama_kamar }}</div>
                      <div class="kamar-button mt-auto">
-                         <a href="{{ route('detail',['kamar'=>$items->id]) }}" class="btn btn-kamar-details px-4">
+                         <a href="{{ route('room.detail',['kamar'=>$items->id]) }}" class="btn btn-kamar-details px-4">
                              View Details
                          </a>
                      </div>

@@ -12,8 +12,9 @@
         @can('level','admin')
         <x-nav-item label="Admin" icon="ft-users" :link="route('admin.index')"/>
         @endcan
-      
+        <x-nav-item label="User" icon="la la-user" :link="route('user.index')"/>
        <x-nav-item label="Kamar" icon="la la-hotel" :link="route('kamar.index')"/>
+       
        <x-nav-item label="Fasilitas Hotel" icon="la la-folder" :link="route('fasilitas.index')"/>
        <x-nav-item label="Pemesanan" icon="la la-money" :link="route('pemesanan.index')"/>
      

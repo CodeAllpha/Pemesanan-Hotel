@@ -16,6 +16,7 @@
                     <div class="col-12 col-lg-3">
                         <h5>ACCOUNT</h5>
                         <ul class="list-unstyled">
+                            <li><a href="">My Account</a></li>
                             <li><a href="">Refund</a></li>
                             <li><a href="">Security</a></li>
                             <li><a href="">Reward</a></li>

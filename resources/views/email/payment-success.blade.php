@@ -210,7 +210,7 @@
                           <tbody>
                             <tr>
                               <td align="left" style="font-size:0px;padding:10px 25px;padding-right:25px;padding-left:25px;word-break:break-word;">
-                                <div style="font-family:Assistant,Hevaltica,Arial,sans-serif;font-size:18px;line-height:28px;text-align:left;color:#000000;">Hello Costumer <br /><br /> Your transaction successfully printed <br /> Booking ID<strong># {{ $data->id }}</strong></div>
+                                <div style="font-family:Assistant,Hevaltica,Arial,sans-serif;font-size:18px;line-height:28px;text-align:left;color:#000000;">Hello Costumer <br /><br /> Your transaction successfully printed <br /> Booking ID<strong> # {{ $data->id }}</strong></div>
                               </td>
                             </tr>
                             <tr>
@@ -236,9 +236,14 @@
                                     <td style="text-align: right">{{ $data->tanggal_checkout }}</td>
                                   </tr>
                                   <tr>
-                                    <td><strong>Purchase Time</strong></td>
-                                    <td style="text-align: right">{{ $data->created_at }}</td>
+                                    <td><strong>Loong Time</strong></td>
+                                    <td style="text-align: right">{{ $data->waktu }} Night</td>
                                   </tr>
+                                    <tr>
+                                    <td><strong>Total Transaction</strong></td>
+                                    <td style="text-align: right">{{ $data->total }}</td>
+                                  </tr>
+                               
                                 </table>
                               </td>
                             </tr>
@@ -259,6 +264,10 @@
                                   <tr>
                                     <td><strong>Phone Number</strong></td>
                                     <td style="text-align: right">{{ $data->no_hp }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td><strong>Purchase Time</strong></td>
+                                    <td style="text-align: right">{{ $data->created_at }}</td>
                                   </tr>
                                 </table>
                               </td>

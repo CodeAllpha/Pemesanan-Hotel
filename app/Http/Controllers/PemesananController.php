@@ -7,6 +7,7 @@ use App\Models\Pemesanan;
 use App\Models\Kamar;
 use App\Helper\Waktu;
 use Barryvdh\DomPDF\Facade\Pdf;
+use DB;
 
 class PemesananController extends Controller
 {
@@ -101,7 +102,7 @@ class PemesananController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Kamar $kamar)
     {
         $request->validate([
         
@@ -112,10 +113,32 @@ class PemesananController extends Controller
         'no_hp'=>'required|numeric',
         'tanggal_checkin'=>'required|date|after:today',
         'tanggal_checkout'=>'required|date|after:tanggal_checkin',
-        'jum_kamar_dipesan'=>'required|integer|min:1|max:5',
+        'jum_kamar_dipesan'=>'required|integer',
         'spesial_request'=>'nullable|string|max:400',
 
         ]);
+
+     
+
+
+        // Jumlah Kamar Berkurang
+        $kamar =  DB::table('kamars')->where('id',$request->kamar)->first();
+        $kamar_kosong = $kamar->kamar_kosong - $request->jum_kamar_dipesan;
+
+        if ($kamar_kosong < 0){
+           return back()->with('toast_error','Ups Jumlah Kamar yang tersedia tidak cukup');
+        }
+
+        DB::table('kamars')
+        ->where('id',$request->kamar)
+        ->update(['kamar_kosong' => $kamar_kosong]);
+
+        // $kamar->update([
+        //     'kamar_kosong' => $kamar_kosong
+        // ]);
+
+        
+
 
         $pemesanan = Pemesanan::create([
             'kamar_id'=>$request->kamar,
@@ -130,6 +153,13 @@ class PemesananController extends Controller
             'status'=>'pending'
         ]);
 
+            // $kamar = Kamar::find($pemesanan->kamar_id);
+            // $pemesanan->jum_kamar_dipesan = $pemesanan->jum_kamar_dipesan;
+            // $kamar->jumlah_kamar = $kamar->jumlah_kamar;
+            // $jumlah = $pemesanan->jum_kamar_dipesan - $kamar->jumlah_kamar;
+            
+      
+        
         return redirect()->route('pemesanan.success',['pemesanan'=>$pemesanan->id])
         ->with('toast_success','Reservasi Baru Telah Di Tambahkan');
     }
@@ -179,7 +209,7 @@ class PemesananController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Pemesanan $pemesanan)
+    public function show(Request $request ,Pemesanan $pemesanan)
     {
         $kamar = Kamar::find($pemesanan->kamar_id);
         $pemesanan->nama_pemesan = ucwords($pemesanan->nama_pemesan);
@@ -222,17 +252,207 @@ class PemesananController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pemesanan $pemesanan)
+    public function update(Request $request, Pemesanan $pemesanan, Kamar $kamar)
     {
+
+        
         $request->validate([
             'status'=>'required|in:pending,checkin,checkout,batal',
         ]);
 
-        $pemesanan->update([
-            'status'=>$request->status,
-        ]);
+        // $pemesanan->update([
+        //     'status'=>$request->status,
+        // ]);
 
-        return back()->with('toast_success','Status Pemesanan Berhasil Di Update!');
+
+         // Status Tidak Berubah
+         $kamar = DB::table('kamars')->where('id',$pemesanan->kamar_id)->first();
+         if ($pemesanan->status === $request->status) {
+             $pemesanan->update([
+                 'status' => $request->status,
+             ]);
+ 
+           
+             return back()->with('toast_info','Status Pemesanan Masih sama yah....');
+         }
+ 
+
+         // Pending Status
+         if($pemesanan->status === "pending" && $request->status === "checkin") {
+             $pemesanan->update([
+                 'status' => $request->status,
+             ]);
+                return back()->with('toast_success','Status Telah Berubah dari Permintaan > Menjadi 
+                Check In..');
+
+         }
+ 
+         elseif($pemesanan->status === "pending" && $request->status === "checkout") {
+             $kamar = DB::table('kamars')->where('id',$pemesanan->kamar_id)->first();
+             $kamar_kosong = $kamar->kamar_kosong + $pemesanan->jum_kamar_dipesan;
+ 
+             DB::table('kamars')
+             ->where('id',$pemesanan->kamar_id)
+             ->update(['kamar_kosong'=>$kamar_kosong]);
+ 
+             $pemesanan->update([
+                 'status' => $request->status,
+             ]);
+
+             return back()->with('toast_success','Status Telah Berubah dari Permintaan > Menjadi 
+                Check Out..');
+         }
+         
+         elseif($pemesanan->status === "pending" && $request->status === "batal"){
+             $kamar = DB::table('kamars')->where('id',$pemesanan->kamar_id)->first();
+             $kamar_kosong = $kamar->kamar_kosong + $pemesanan->jum_kamar_dipesan;
+
+             DB::table('kamars')
+             ->where('id',$pemesanan->kamar_id)
+             ->update(['kamar_kosong'=>$kamar_kosong]);
+
+             $pemesanan->update([
+                 'status' => $request->status
+
+             ]);
+
+             return back()->with('toast_warning','Status Telah Berubah dari Permintaan > Menjadi 
+            Cancel..');
+         }
+
+
+         // Checkin Status
+         if ($pemesanan->status === "checkin" && $request->status === "pending"){
+             $pemesanan->update([
+                 'status' => $request->status
+             ]);
+
+             return back()->with('toast_success','Status Telah Berubah dari Check In > Menjadi 
+             Permintaan..');
+         }
+
+         elseif($pemesanan->status === "checkin" && $request->status === "checkout"){
+             $kamar = DB::table('kamars')->where('id',$pemesanan->kamar_id)->first();
+             $kamar_kosong = $kamar->kamar_kosong + $pemesanan->jum_kamar_dipesan;
+
+             DB::table('kamars')
+             ->where('id',$pemesanan->kamar_id)
+             ->update(['kamar_kosong'=>$kamar_kosong]);
+
+             $pemesanan->update([
+                 'status' => $request->status
+             ]);
+
+             return back()->with('toast_success','Status Telah Berubah dari Check In > Menjadi 
+                Check Out..');
+         }
+
+         elseif($pemesanan->status === "checkin" && $request->status === "batal"){
+            $kamar = DB::table('kamars')->where('id',$pemesanan->kamar_id)->first();
+            $kamar_kosong = $kamar->kamar_kosong + $pemesanan->jum_kamar_dipesan;
+
+            DB::table('kamars')
+            ->where('id',$pemesanan->kamar_id)
+            ->update(['kamar_kosong'=>$kamar_kosong]);
+
+            $pemesanan->update([
+                'status' => $request->status
+            ]);
+
+            return back()->with('toast_warning','Status Telah Berubah dari Check In > Menjadi 
+            Cancel..');
+        }
+
+        // Checkout Status
+        if ($pemesanan->status === "checkout" && $request->status === "batal"){
+            $pemesanan->update([
+                'status' => $request->status
+            ]);
+
+            return back()->with('toast_warning','Status Telah Berubah dari Check Out > Menjadi 
+                Cancel..');
+        }
+
+        elseif($pemesanan->status === "checkout" && $request->status === "checkin"){
+            $kamar = DB::table('kamars')->where('id',$pemesanan->kamar_id)->first();
+            $kamar_kosong = $kamar->kamar_kosong - $pemesanan->jum_kamar_dipesan;
+
+            DB::table('kamars')
+            ->where('id',$pemesanan->kamar_id)
+            ->update(['kamar_kosong'=>$kamar_kosong]);
+
+            $pemesanan->update([
+                'status' => $request->status
+            ]);
+
+            return back()->with('toast_warning','Status Telah Berubah dari Check Out > Menjadi 
+            Check In..');
+        }
+
+        elseif($pemesanan->status === "checkout" && $request->status === "pending"){
+           $kamar = DB::table('kamars')->where('id',$pemesanan->kamar_id)->first();
+           $kamar_kosong = $kamar->kamar_kosong - $pemesanan->jum_kamar_dipesan;
+
+           DB::table('kamars')
+           ->where('id',$pemesanan->kamar_id)
+           ->update(['kamar_kosong'=>$kamar_kosong]);
+
+           $pemesanan->update([
+               'status' => $request->status
+           ]);
+
+           return back()->with('toast_warning','Status Telah Berubah dari Check Out > Menjadi 
+                Permintaan..');
+       }
+
+
+        // Batal Status
+        if ($pemesanan->status === "batal" && $request->status === "checkout"){
+            $pemesanan->update([
+                'status' => $request->status
+            ]);
+
+            return back()->with('toast_warning','Status Telah Berubah dari Cancel > Menjadi 
+                Checkout..');
+        }
+
+        elseif($pemesanan->status === "batal" && $request->status === "checkin"){
+            $kamar = DB::table('kamars')->where('id',$pemesanan->kamar_id)->first();
+            $kamar_kosong = $kamar->kamar_kosong - $pemesanan->jum_kamar_dipesan;
+
+            DB::table('kamars')
+            ->where('id',$pemesanan->kamar_id)
+            ->update(['kamar_kosong'=>$kamar_kosong]);
+
+            $pemesanan->update([
+                'status' => $request->status
+            ]);
+
+            return back()->with('toast_success','Status Telah Berubah dari Cancel > Menjadi 
+            Checkin..');
+        }
+
+        elseif($pemesanan->status === "batal" && $request->status === "pending"){
+           $kamar = DB::table('kamars')->where('id',$pemesanan->kamar_id)->first();
+           $kamar_kosong = $kamar->kamar_kosong - $pemesanan->jum_kamar_dipesan;
+
+           DB::table('kamars')
+           ->where('id',$pemesanan->kamar_id)
+           ->update(['kamar_kosong'=>$kamar_kosong]);
+
+           $pemesanan->update([
+               'status' => $request->status
+           ]);
+
+           return back()->with('toast_info','Status Telah Berubah dari Cancel > Menjadi 
+                Permintaan..');
+       }
+
+
+      
+
+
+        // return back()->with('toast_success','Status Pemesanan Berhasil Di Update!');
     }
 
     /**

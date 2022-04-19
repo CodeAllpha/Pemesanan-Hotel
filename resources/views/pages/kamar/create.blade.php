@@ -31,7 +31,7 @@
          <div class="row">
              <div class="col-md-6">
             <x-input label="Nama Kamar" name="nama_kamar" placeholder="Masukan Nama Kamar"/>
-            <x-input label="Type Kamar" name="type_kamar" placeholder="Masukan Type Kamar"/> 
+            <x-input label="Kapasitas" name="kapasitas" type="number" placeholder="Masukan Kapasitas Kamar"/> 
              </div>
             <div class="col-md-6">
             <x-input label="Jumlah Kamar" name="jumlah_kamar" type="number" placeholder="Masukan Jumlah Kamar"/>
@@ -47,7 +47,7 @@
             <x-input label="Lebar Kasur" name="lebar_kasur" type="number" placeholder="Masukan Lebar Kasur"/>  
             </div>
             <div class="col-md-6">
-              <x-input label="Type Kasur" name="type_kasur"  placeholder="Masukan Type Kasur"/>
+              <x-input label="Tipe Kasur" name="tipe_kasur"  placeholder="Masukan Tipe Kasur"/>
               </div>
               <div class="col-md-6">
                 <x-input label="Foto Kamar" name="foto_kamar" type="file" keterangan="Foto Bertipe : png. jpg. jpeg"

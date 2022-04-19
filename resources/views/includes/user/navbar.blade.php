@@ -12,12 +12,12 @@
         <div class="collapse navbar-collapse" id="navb">
             <ul class="navbar-nav ml-auto mr-3">
                 <x-nav-item-user label="Home" :link="route('landing')"/>
-                <x-nav-item-user label="Rooms" :link="route('room')"/>
-                <x-nav-item-user label="Facilities" :link="route('facilities')"/>
+                <x-nav-item-wild label="Rooms" :link="route('room')"/>
+                <x-nav-item-wild label="Facilities" :link="route('facilities')"/>
             <li class="nav-item mx-md-2">
                 <a href="#testimonialheading" class="nav-link">Testimonial</a>
             </li>
-            <x-nav-item-user label="Contact Us" :link="route('contact')"/>
+            <x-nav-item-wild label="Contact Us" :link="route('contact')"/>
 
              
 

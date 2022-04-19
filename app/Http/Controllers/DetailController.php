@@ -33,7 +33,8 @@ class DetailController extends Controller
 
         $kamar = Kamar::query()
             ->where('nama_kamar','LIKE', "%{$search}%")
-            ->orWhere('type_kamar','LIKE',"%{$search}%")
+            ->orWhere('kapasitas','LIKE',"%{$search}%")
+            ->orWhere('tipe_kasur','LIKE',"%{$search}%")
             ->orWhere('harga_kamar','LIKE',"%{$search}%")
             ->get();
 
@@ -41,6 +42,13 @@ class DetailController extends Controller
                 $kamar->foto_kamar = ImageUrl::get('assets/kamar/',$kamar->foto_kamar);
                 return $kamar;
             });
+
+            // $kamar = DB::table('kamars')->select('nama_kamar')->distinct()->get()->pluck('nama_kamar');
+            // $kamar = $request->has('nama_kamar')
+            // ? Kamar::where('nama_kamar', $request->nama_kamar)->get()
+            // : [];
+
+           
             
         return view('pages.user.room', compact('kamar'));
 
@@ -49,7 +57,7 @@ class DetailController extends Controller
     public function room(Request $request, Kamar $kamar)
     {
 
-        $kamar = Kamar::select('id','nama_kamar','foto_kamar','luas_kamar','panjang_kasur','lebar_kasur','harga_kamar','type_kasur','type_kamar')->get();
+        $kamar = Kamar::select('id','nama_kamar','foto_kamar','luas_kamar','panjang_kasur','lebar_kasur','harga_kamar','tipe_kasur','kapasitas','kamar_kosong')->get();
         $kamar->map(function($kamar){
             $kamar->nama_kamar = ucwords($kamar->nama_kamar);
             $kamar->harga_kamar = number_format($kamar->harga_kamar,0,',','.');
@@ -57,9 +65,9 @@ class DetailController extends Controller
             return $kamar;
         });
         
-
         return view('pages.user.room',[
             'kamar'=>$kamar
+                
             
         ]);
 

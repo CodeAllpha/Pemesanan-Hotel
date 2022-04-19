@@ -30,7 +30,7 @@
     <div class="row">
         <div class="col-md-6">
         <x-input label="Nama Kamar" name="nama_kamar" placeholder="Masukan Nama Kamar" :value="$item->nama_kamar"/>
-          <x-input label="Type Kamar" name="type_kamar" placeholder="Masukan Type Kamar" :value="$item->type_kamar"/>
+          <x-input label="Type Kamar" name="kapasitas" placeholder="Masukan Type Kamar" :value="$item->kapasitas"/>
             <div class="row">
               <div class="col-md-6">
             <x-input label="Harga Kamar" name="harga_kamar" placeholder="Masukan Harga Kamars" :value="$item->harga_kamar"/>
@@ -52,7 +52,7 @@
               <x-input label="Luas Kamar" name="luas_kamar" placeholder="Masukan Luat Kamar" :value="$item->luas_kamar"/>
             </div>
           <div class="col-md-6">
-            <x-input label="Type Kasur" name="type_kasur" placeholder="Masukan Type Kasur" :value="$item->type_kasur"/>
+            <x-input label="Type Kasur" name="tipe_kasur" placeholder="Masukan Type Kasur" :value="$item->tipe_kasur"/>
             </div>
           </div>
         

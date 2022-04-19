@@ -28,11 +28,11 @@ class KamarController extends Controller
 
         $search = $request->search;
 
-        $data = Kamar::select('id','nama_kamar','jumlah_kamar','harga_kamar','foto_kamar','type_kamar')
+        $data = Kamar::select('id','nama_kamar','jumlah_kamar','harga_kamar','foto_kamar','kapasitas','kamar_kosong')
                     ->when($search,function($query,$search){
                         return $query->where('nama_kamar','like',"%{$search}%")
                                     ->orWhere('harga_kamar','like',"%{$search}%")
-                                    ->orWhere('type_kamar','like',"%{$search}%");
+                                    ->orWhere('kapasitas','like',"%{$search}%");
                     })
                     ->paginate(10);
 
@@ -60,8 +60,8 @@ class KamarController extends Controller
         $request->validate([
 
             'nama_kamar' => 'required|max:40|regex:/^[a-zA-ZÑñ\s\.]+$/|unique:kamars',
-            'type_kamar'=>'required|max:20|regex:/^[a-zA-ZÑñ\s\.]+$/|unique:kamars',
-            'type_kasur'=>'required|max:20|regex:/^[a-zA-ZÑñ\s\.]+$/',
+            'kapasitas'=> 'required|integer|min:1|max:4',
+            'tipe_kasur'=>'required|max:20|regex:/^[a-zA-ZÑñ\s\.]+$/',
             'luas_kamar'=> 'required|integer|min:10|max:300',
             'panjang_kasur'=> 'required|integer|min:30|max:300',
             'lebar_kasur'=>'required|integer|min:30|max:100',
@@ -74,9 +74,10 @@ class KamarController extends Controller
 
         $data = new Kamar;
         $data->nama_kamar = $request->input('nama_kamar');
-        $data->type_kamar = $request->input('type_kamar');
+        $data->kapasitas = $request->input('kapasitas');
+        $data->kamar_kosong = $request->input('jumlah_kamar');
         $data->luas_kamar = $request->input('luas_kamar');
-        $data->type_kasur = $request->input('type_kasur');
+        $data->tipe_kasur = $request->input('tipe_kasur');
         $data->panjang_kasur = $request->input('panjang_kasur');
         $data->lebar_kasur = $request->input('lebar_kasur');
         $data->harga_kamar = $request->input('harga_kamar');
@@ -161,8 +162,8 @@ class KamarController extends Controller
     {
         $request->validate([
             'nama_kamar' => "required|max:40|regex:/^[a-zA-ZÑñ\s\.]+$/|unique:kamars,nama_kamar,{$id}",
-            'type_kamar'=>"required|max:20|regex:/^[a-zA-ZÑñ\s\.]+$/|unique:kamars,type_kamar,{$id}",
-            'type_kasur'=>'required|max:20|regex:/^[a-zA-ZÑñ\s\.]+$/',
+            'kapasitas'=>"required|max:20|regex:/^[a-zA-ZÑñ\s\.]+$/|unique:kamars,kapasitas,{$id}",
+            'tipe_kasur'=>'required|max:20|regex:/^[a-zA-ZÑñ\s\.]+$/',
             'luas_kamar'=> 'required|integer|min:10|max:100',
             'panjang_kasur'=> 'required|integer|min:10|max:100',
             'lebar_kasur'=>'required|integer|min:10|max:100',
@@ -175,9 +176,9 @@ class KamarController extends Controller
 
         $data = Kamar::find($id);
         $data->nama_kamar = $request->input('nama_kamar');
-        $data->type_kamar = $request->input('type_kamar');
+        $data->kapasitas = $request->input('kapasitas');
         $data->luas_kamar = $request->input('luas_kamar');
-        $data->type_kasur = $request->input('type_kasur');
+        $data->tipe_kasur = $request->input('tipe_kasur');
         $data->panjang_kasur = $request->input('panjang_kasur');
         $data->lebar_kasur = $request->input('lebar_kasur');
         $data->harga_kamar = $request->input('harga_kamar');
@@ -197,7 +198,40 @@ class KamarController extends Controller
             $file->move('assets/kamar/',$filename);
             $data->foto_kamar = $filename;
         }
+
+
         $data->update();
+
+        // if ($kamar->foto_kamar && $request->foto_kamar)
+        // {
+        //     $file = 'assets/kamar'.$kamar->foto_kamar;
+        //     if(file_exists($file)) {
+        //         unlink($file);
+        //     }
+        // }
+
+        // if($request->foto_kamar)
+        // {
+        //     $room = strtolower($request->nama_kamar);
+        //     $ext = $request->foto_kamar->getClientOriginalExtension();
+        //     $filename = $room . '-' . rand(100000,9000000) . '-' . time() .'.'.$ext;
+        //     $filename = str_replace(" ","_",$filename);
+        //     $request->foto_kamar->move('assets/kamar',$filename);
+
+        //     if($request->jumlah_kamar > $kamar->kamar_kosong){
+        //         $result = $request->jumlah_kamar - $kamar->kamar_kosong;
+        //         $result = $kamar->jum_dipesan + $result;
+
+        //         $arr = [
+        //             'nama_kamar' => $nama_kamar,
+        //             'foto_kamar' => $filename,
+        //             'jumlah_kamar' => $request->jumlah_kamar,
+        //             'kamar_kosong'
+        //         ]
+        //     }
+        // }
+
+
         return redirect()->route('kamar.index')->with('toast_success', 'Data Berhasil Di Update!');
         
     }

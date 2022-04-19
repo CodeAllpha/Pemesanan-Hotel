@@ -9,10 +9,10 @@
                         <nav>
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                   <a href="{{ route('room',['kamar'=>$kamar->id]) }}" class="text-dark">Kamar</a>
+                                   <a href="{{ route('room',['kamar'=>$kamar->id]) }}" class="text-dark">Room</a>
                                 </li>
                                 <li class="breadcrumb-item active">
-                                    <a href="{{ route('detail',['kamar'=>$kamar->id]) }}" class="text-dark">Details</a>
+                                    <a href="{{ route('room.detail',['kamar'=>$kamar->id]) }}" class="text-dark">Details</a>
                                 </li>
                             </ol>
                         </nav>
@@ -22,7 +22,7 @@
                     <div class="col-lg-8 pl-lg-0 mt-2">
                         <div class="card card-details">
                             <h1>{{ $kamar->nama_kamar }}</h1>
-                            <p>{{ $kamar->type_kamar }}</p>
+                           <br>
                        
                         <div class="gallery">
                             <div class="xzoom-container">
@@ -54,27 +54,32 @@
                        <div class="card card-details card-right">
                            <h1 class="mb-4">Information</h1>
                            <table class="room-information ">
-                          
                             <tr>
-                                <th width="50%">Kasur</th>
-                                <td width="50%" class="text-right">{{ $kamar->type_kasur }}</td>
-                                
+                                <th width="50%">Room Avaliable</th>
+                                <td width="50%" class="text-right">{{ $kamar->kamar_kosong }} Room</td>
                             </tr>
                             <tr>
-                                <th width="50%">Ukuran Kasur</th>
+                                <th width="50%">Room Capacity</th>
+                                <td width="50%" class="text-right">{{ $kamar->kapasitas }} People</td>
+                            </tr>
+                            <tr>
+                                <th width="50%">Bed</th>
+                                <td width="50%" class="text-right">{{ $kamar->tipe_kasur }}</td>
+                            </tr>     
+                            <tr>
+                                <th width="50%">Bed Size</th>
                                 <td width="50%" class="text-right">{{ $kamar->panjang_kasur }} cm x {{ $kamar->lebar_kasur }} cm</td>
                                 
                             </tr>
                             <tr>
-                                <th width="50%">Luas Kamar</th>
+                                <th width="50%">Room Area</th>
                                 <td width="50%" class="text-right">{{ $kamar->luas_kamar }} Sqm</td>
-                                
                             </tr>
-                      
                             <tr>
-                                <th width="50%">Harga Kamar</th>
+                                <th width="50%">Room Price</th>
                                 <td width="50%" class="text-right">Rp.{{ $kamar->harga_kamar }}</td>
                             </tr>
+                            
                         </table>
                            <hr>
                            <h3>Room Facilities</h3>
@@ -90,19 +95,23 @@
                         </div>
                         <div class="booking-container">
                            @auth
-                               <form action="{{ route('checkout',['kamar'=>$kamar->id]) }}"  >
+                           @if ($kamar->kamar_kosong < 1)
+                           <button class="btn btn-block btn-danger mt-3 py-2 disabled" type="submit">
+                            Room not avaliable
+                           </button>
+                           @else
+                               <form action="{{ route('booking',['kamar'=>$kamar->id]) }}"  >
                                <button class="btn btn-block btn-booking-now mt-3 py-2" type="submit">
                                 Booking Now
                                </button>
                                </form>
+                            @endif
                            @endauth
-
-                            @guest
+                            @guest 
                             <a href="{{ route('login') }}" class="btn btn-block btn-booking-now mt-3 py-2">
                                 Please Login First To Booking
                             </a>
                             @endguest
-
                         </div>
                        </div>
                 

@@ -9,10 +9,10 @@
                         <nav>
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('detail',['kamar'=>$kamar->id]) }}" class="text-dark">Details</a>
+                                    <a href="{{ route('room.detail',['kamar'=>$kamar->id]) }}" class="text-dark">Details</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('checkout',['kamar'=>$kamar->id]) }}" class="text-dark">Checkout</a>
+                                    <a href="{{ route('booking',['kamar'=>$kamar->id]) }}" class="text-dark">Checkout</a>
                                 </li>
                                 <li class="breadcrumb-item active">
                                     <a href="{{ route('payment',['pemesanan'=>$pemesanan->id]) }}" class="text-dark">Payments</a>
@@ -35,8 +35,8 @@
                                         <td class="col-md-8">{{ $pemesanan->nama_tamu }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="col-md-4">Total Rooms</td>
-                                        <td class="col-md-8">{{ $pemesanan->jum_kamar_dipesan }}</td>
+                                        <td class="col-md-4">Booking Rooms</td>
+                                        <td class="col-md-8">{{ $pemesanan->jum_kamar_dipesan }} Rooms</td>
                                     </tr>
                                     <tr>
                                         <td class="col-md-4">Check In</td>
@@ -91,7 +91,7 @@
                     </div>
                     <div class="col-lg-4 mt-2">
                        <div class="card card-details card-right">
-                           <h1>Checkout Information</h1>
+                           <h1>Payment Information</h1>
                            <table class="room-information mt-2 mb-2">
                             <tr>
                                 <th width="50%">Order by</th>

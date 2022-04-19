@@ -32,6 +32,7 @@ Route::group([
     Route::get('pemesanan/{pemesanan}/success/invoice', [PemesananController::class, 'invoice'])
     ->name('pemesanan.invoice');
     Route::resource('kamar','KamarController');
+    Route::resource('user','UserController');
     Route::resource('kamar.fasilitas','FasilitasKamarController');
     Route::resource('fasilitas','FasilitasHotelController');
 
@@ -50,13 +51,14 @@ Route::get('/verify', [App\Http\Controllers\HomeController::class, 'index'])
 
 
 
-
+Route::get('/live_search', 'LiveSearch@index');
+Route::get('/live_search/action', 'LiveSearch@action')->name('live_search.action');
 
 Route::get('reservasi/create', [ReservasiController::class, 'index'])->name('reservasi');
 
-Route::get('home','LandingController@index')->name('landing');
+Route::get('/','LandingController@index')->name('landing');
 
-Route::get('/room/detail/{kamar}','DetailController@index')->name('detail');
+Route::get('/room/detail/{kamar}','DetailController@index')->name('room.detail');
 
 Route::get('/room','DetailController@room')->name('room');
 Route::get('/room/search/','DetailController@search')->name('search');
@@ -64,22 +66,22 @@ Route::get('/room/search/','DetailController@search')->name('search');
 Route::get('/facilities','FacilitiesController@facilities')->name('facilities');
 
 Route::get('/contact','ContactController@contact')->name('contact');
+Route::post('/contact/send-message','ContactController@sendEmail')->name('contact.send');
 
-Route::get('/contact','ContactController@contact')->name('contact');
 
-Route::get('/detail/checkout/{kamar}','CheckoutController@index')
-->name('checkout')
+Route::get('/detail/booking/{kamar}','BookingController@index')
+->name('booking')
 ->middleware(['auth','verified']);
 
-Route::post('checkout/room/{kamar}','CheckoutController@create')
-->name('checkout.room')
+Route::post('booking/room/{kamar}','BookingController@create')
+->name('booking.room')
 ->middleware(['auth','verified']);
 
-Route::get('checkout/payment/{pemesanan}','PaymentController@index')
+Route::get('booking/payment/{pemesanan}','PaymentController@index')
 ->name('payment')
 ->middleware(['auth','verified']);
 
-Route::get('chekout/payment/{pemesanan}/success','PaymentController@mail')
+Route::get('booking/payment/{pemesanan}/success','PaymentController@mail')
 ->name('mail')
 ->middleware(['auth','verified']);
 

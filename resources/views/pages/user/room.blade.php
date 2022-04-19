@@ -3,35 +3,24 @@
 <main>
         
     <section class="room-search">
-        <div class="container col-lg-10">
-            <form action="{{ route('search') }}" method="GET" class="row bg-white booking-stat py-3 px-2 booking border shadow " style="border-radius: 5px;">
-                <div class="col-lg-3 mt-1 mb-1">
+        <div class="container justify-content-center">
+        <div class="col-md-12">
+            <form action="{{ route('search') }}" method="GET" class="row bg-white booking-stat py-3 booking shadow" style="border-radius: 10px">
+                <div class="col-lg-10 mt-1 mb-2">
                     <div class="input-group">
-                        <input type="text" class="form-control rounded" maxlength="30" placeholder="Room Name" id="search" name="search" value="{{ request()->search }}">
+                        <input type="text" class="form-control" maxlength="30" placeholder="Search Room Information in Here..." id="search" name="search" value="{{ request()->search }}" style="border-radius: 10px">
                     </div>
                 </div>
-                <div class="col-lg-3 mt-1 mb-1">
-                    <div class="input-group">
-                      <input type="text" class="form-control rounded" maxlength="30" placeholder="Room Type" name="nama_kamar">
-                    </div>
-                 </div>
-                 <div class="col-lg-2 mt-1 mb-1">
-                     <div class="input-group">
-                         <input type="text" class="form-control" onfocus="(this.type='date')" placeholder="Check In" id="date" name="tanggal_checkin">
-                     </div>
-                 </div>
-                 <div class="col-lg-2 mt-1 mb-1">
-                     <div class="input-group">
-                         <input type="text" class="form-control" onfocus="(this.type='date')" placeholder="Check Out" id="date" name="tanggal_checkout">
-                     </div>
-                 </div>
-             
+               
+
                 <div class="col-md-2 mt-1 mb-1">
-                    <button type="submit" class="btn btn-block btn-search">Search</button>
+                    <button type="submit" class="btn btn-block btn-search" style="border-radius: 10px">Search</button>
                 </div>
             </form>
+        </div>
        </div>
       </section>
+
 
       <section class="section-kamar-post">
         <div class="container">
@@ -40,7 +29,7 @@
                 <div class="card-header room">
                   <div class="row">
                    <div class="col-md-7">
-                       {{ $kamar->nama_kamar }}
+                     {{ $kamar->nama_kamar }}
                    </div>
                    <div class="col-md-5">Room Information</div>
                   </div>
@@ -60,7 +49,7 @@
                                  <table class="table my-table">
                                      <thead>
                                          <tr>
-                                             <th>Room Type</th>
+                                             <th>Room Capacity</th>
                                              <th>Room Size</th>
                                              <th>Bed Type</th>
                                              <th>Price</th>
@@ -68,12 +57,12 @@
                                      </thead>
                                      <tbody>
                                          <tr>
-                                             <td>{{ $kamar->type_kamar }}</td>
+                                             <td>{{ $kamar->kapasitas }} People</td>
                                              <td>
                                                   {{ $kamar->panjang_kasur }} cm x 
                                                   {{ $kamar->lebar_kasur }} cm
                                             </td>
-                                             <td>{{ $kamar->type_kasur }}</td>
+                                             <td>{{ $kamar->tipe_kasur }}</td>
                                              <td class="price">Rp {{ $kamar->harga_kamar }} / Night</td>
                                          </tr>
                                      </tbody>
@@ -82,7 +71,7 @@
                         
                            </div>
                            <div class="card-footer text-right">
-                             <a href="{{ route('detail',['kamar'=>$kamar->id]) }}" class="btn btn-get-this btn-sm">Get this room</a>
+                             <a href="{{ route('room.detail',['kamar'=>$kamar->id]) }}" class="btn btn-get-this btn-sm">Get this room</a>
                            </div>
                        </div>
                    </div>

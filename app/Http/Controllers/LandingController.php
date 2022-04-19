@@ -16,6 +16,7 @@ class LandingController extends Controller
      */
     public function index()
     {
+        $kamar = Kamar::select('id as value','nama_kamar as option')->get();
 
         $fasilitas = FasilitasHotel::select('id','nama_fasilitas_hotel','foto_fasilitas_hotel','deskripsi_fasilitas_hotel')->get();
         $kamar = Kamar::select('id','nama_kamar','foto_kamar','nama_kamar as option')->get();

@@ -28,7 +28,7 @@ class PaymentController extends Controller
         $pemesanan->tanggal_checkout = date('d/m/Y',strtotime($pemesanan->tanggal_checkout));
         $kamar->nama_kamar = ucwords($kamar->nama_kamar);
         $bayar = $kamar->harga_kamar * $pemesanan->jum_kamar_dipesan * $pemesanan->waktu;
-        $pemesanan->bayar = number_format($bayar,0,',','.');
+        $pemesanan->bayar = number_format($bayar,0,'.',',');
         $pemesanan->tanggal_dibuat = date('d/m/Y',strtotime($pemesanan->created_at));
         $kamar->harga_kamar = number_format($kamar->harga_kamar,0,'.',',');
       
@@ -38,10 +38,14 @@ class PaymentController extends Controller
     }
 
 
-    public function mail(Request $request ,$id)
+    public function mail(Request $request, Kamar $kamar ,$id)
     { 
         
         $pemesanan = Pemesanan::with(['kamar','user'])->findorFail($id);
+        $kamar = Kamar::find($pemesanan->kamar_id);
+        $pemesanan->waktu = Waktu::get($pemesanan->tanggal_checkin,$pemesanan->tanggal_checkout);
+        $total = $kamar->harga_kamar * $pemesanan->jum_kamar_dipesan * $pemesanan->waktu;
+        $pemesanan->total = number_format($total,0,'.',',');
        
 
       

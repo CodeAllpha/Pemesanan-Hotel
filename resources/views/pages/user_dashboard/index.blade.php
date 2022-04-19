@@ -1,17 +1,16 @@
 @extends('layouts.main')
 
+
 @section('title')
-  Kamar
+  User
 @endsection
-
-
 @section('main-content')
 <div class="app-content content">
     <div class="content-wrapper">
       <div class="content-wrapper-before"></div>
       <div class="content-header row">
         <div class="content-header-left col-md-4 col-12 mb-2">
-          <h3 class="content-header-title">Kamar</h3>
+          <h3 class="content-header-title">User Account List</h3>
         </div>
         <div class="content-header-right col-md-8 col-12">
           <div class="breadcrumbs-top float-md-right">
@@ -19,7 +18,7 @@
               <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Dashboard</a>
                 </li>
-                <li class="breadcrumb-item active">Kamar
+                <li class="breadcrumb-item active">User
                 </li>
               </ol>
             </div>
@@ -32,31 +31,17 @@
   <div class="col-12">
       <div class="card">
           <div class="card-header">
-              <h4 class="card-title">
-                @can('level','admin')
-                <x-btn-create :link="route('kamar.create')"/>
-                @endcan
-                </h4>
-              <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-              <div class="heading-elements">
-                  <ul class="list-inline mb-0">
-                      <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                      <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                      <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                      <li><a data-action="close"><i class="ft-x"></i></a></li>
-                  </ul>
-              </div>
           </div>
           <div class="card-content collapse show">
           <x-card-table>   
                       <thead>
                           <tr>
                               <th scope="col">No</th>
-                              <th scope="col">Nama Kamar</th>
-                              <th scope="col">Harga Kamar</th>
-                              <th scope="col">Kapasitas</th>
-                              <th scope="col">Jumlah Kamar</th>
-                              <th scope="col">Kamar Kosong</th>
+                              <th scope="col">Name</th>
+                              <th scope="col">Username</th>
+                              <th scope="col">Email</th>
+                              <th scope="col">Phone</th>
+                             
                               <th scope="col">Action</th>
                           </tr>
                       </thead>
@@ -65,28 +50,20 @@
                      @forelse ($data as $item)
                      <tr>
                         <th scope="row">{{ $no++ }}</th>
-                        <th scope="row">{{ucwords( $item->nama_kamar) }}</th>
-                        <td scope="row">Rp. {{number_format( $item->harga_kamar,2,'.',',')}}</td>
-                        <th scope="row">{{ucwords( $item->kapasitas) }} Orang</th>
-                        <td scope="row">{{ $item->jumlah_kamar }} Kamar</td>
-                        <td scope="row">{{ $item->kamar_kosong }} Tersedia</td>
+                        <th scope="row">{{ $item->name }}</th>
+                        <td scope="row">{{ $item->username }}</td>
+                        <td scope="row">{{ $item->email }}</td>
+                        <td scope="row">{{ $item->phone_number }}</td>
                       
                         <td>
-                        
-                        
-                         <a href="{{ route('kamar.fasilitas.index',['kamar'=>$item->id]) }}"
-                          class="mr-1"><i class="la la-television" title="Fasilitas"></i>
-                         </a>
-                         <x-btn-show :link="route('kamar.show',['kamar'=>$item->id])"/>
-
-                       @can('level','admin')
-                       <x-btn-edit :link="route('kamar.edit',['kamar'=>$item->id])"/>
-                      <x-btn-delete :link="route('kamar.destroy',['kamar'=>$item->id])"/> 
-                       @endcan
+                         @can('level','admin')
+                         <x-btn-edit :link="route('user.edit',['user'=>$item->id])"/>
+                          <x-btn-delete :link="route('user.destroy',['user'=>$item->id])"/>
+                         @endcan
                        
-                      
                         </td>
                     </tr> 
+
                      @empty
                      <tr>
                       <td colspan="5" class="text-center py-5" >

@@ -1,9 +1,6 @@
 @extends('layouts.user')
-
 @section('user-content')
 <main>
-
-
     <section class="section-contact-us">
         <div class="container">
             <div class="row">
@@ -22,39 +19,70 @@
         <div class="content">
           <div class="left-side">
             <div class="address details">
-              <i class="fas fa-map-marker-alt"></i>
+              <i class="fa fa-map-marker"></i>
               <div class="topic">Address</div>
               <div class="text-one">Purwodadi,Patimuan </div>
               <div class="text-two">Pancimas 03</div>
             </div>
             <div class="phone details">
-              <i class="fas fa-phone-alt"></i>
+              <i class="fa fa-phone"></i>
               <div class="topic">Phone</div>
               <div class="text-one">+62 823 2954 7489</div>
             </div>
             <div class="email details">
-              <i class="fas fa-envelope"></i>
+              <i class="fa fa-envelope"></i>
               <div class="topic">Email</div>
               <div class="text-one">ganyuhotel@gmail.com</div>
             </div>
           </div>
           <div class="right-side">
+        
             <div class="topic-text">Send us a message</div>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo praesentium vitae neque sint maiores autem error aspernatur, cum minus ducimus.</p>
-          <form action="#">
+          
+            @if ($notification = Session::get('success'))
+            <div class="alert alert-success alert-block">
+              <button type="button" class="close" data-dismiss="alert">×</button>	
+                    <strong>{{ $notification }}</strong>
+            </div>
+            @endif
+            @guest
+          <form action="{{ route('contact.send') }}" method="POST" enctype="multipart/form-data">
+            @csrf
             <div class="input-box">
-              <input type="text" placeholder="Enter your name">
+              <input type="text" name="name" placeholder="Enter your name">
             </div>
             <div class="input-box">
-              <input type="text" placeholder="Enter your email">
+              <input type="text" name="email" placeholder="Enter your email">
             </div>
             <div class="input-box message-box">
-              <textarea placeholder="Enter your message"></textarea>
+              <textarea name="msg" placeholder="Enter your message"></textarea>
             </div>
             <div class="button">
-              <input type="button" class="btn" value="Send Now">
+           <a href="{{ route('login') }}">
+            <input type="button" class="btn btn-dark" value="Please Login First to Send Mail">
+           </a>
             </div>
           </form>
+          @endguest
+
+          @auth
+          <form action="{{ route('contact.send') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="input-box">
+              <input type="text" name="name" placeholder="Enter your name" value="{{ Auth::user()->name }}">
+            </div>
+            <div class="input-box">
+              <input type="text" name="email" placeholder="Enter your email" value="{{ Auth::user()->email }}">
+            </div>
+            <div class="input-box message-box">
+              <textarea name="msg" placeholder="Enter your message"></textarea>
+            </div>
+            <div class="button">
+              <input type="submit" class="btn btn-dark" value="Send Mail">
+            </div>
+          </form>
+          @endauth
         </div>
         </div>
       </div>
