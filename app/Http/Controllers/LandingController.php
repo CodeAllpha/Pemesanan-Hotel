@@ -49,7 +49,8 @@ class LandingController extends Controller
 
     public function booking()
     {
-     
+        
+        return redirect()->route('booking')->with('toast_danger','Maaf fitur dalam perbaikan');
     }
 
 

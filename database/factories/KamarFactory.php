@@ -16,7 +16,7 @@ class KamarFactory extends Factory
         return [
 
             'nama_kamar'=>$this->faker->word(),
-            'kapasitas'=>rand(5,10),
+            'kapasitas'=>rand(2,8),
             'tipe_kasur'=>$this->faker->word(),
             'panjang_kasur'=>rand(10,20),
             'lebar_kasur'=>rand(10,20),

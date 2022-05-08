@@ -228,6 +228,10 @@
                                     <td style="text-align: right">{{ $data->kamar->nama_kamar }}</td>
                                   </tr>
                                   <tr>
+                                    <td><strong>Total Room</strong></td>
+                                    <td style="text-align: right">{{ $data->jum_kamar_dipesan }} Room</td>
+                                  </tr>
+                                  <tr>
                                     <td><strong>Check In</strong></td>
                                     <td style="text-align: right">{{ $data->tanggal_checkin }}</td>
                                   </tr>
@@ -241,7 +245,7 @@
                                   </tr>
                                     <tr>
                                     <td><strong>Total Transaction</strong></td>
-                                    <td style="text-align: right">{{ $data->total }}</td>
+                                    <td style="text-align: right">Rp.{{ $data->total }}</td>
                                   </tr>
                                
                                 </table>

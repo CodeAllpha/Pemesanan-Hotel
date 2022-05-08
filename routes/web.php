@@ -57,6 +57,7 @@ Route::get('/live_search/action', 'LiveSearch@action')->name('live_search.action
 Route::get('reservasi/create', [ReservasiController::class, 'index'])->name('reservasi');
 
 Route::get('/','LandingController@index')->name('landing');
+// Route::get('/','LandingController@booking')->name('booking');
 
 Route::get('/room/detail/{kamar}','DetailController@index')->name('room.detail');
 
@@ -81,7 +82,7 @@ Route::get('booking/payment/{pemesanan}','PaymentController@index')
 ->name('payment')
 ->middleware(['auth','verified']);
 
-Route::get('booking/payment/{pemesanan}/success','PaymentController@mail')
+Route::post('booking/payment/{pemesanan}/success','PaymentController@mail')
 ->name('mail')
 ->middleware(['auth','verified']);
 

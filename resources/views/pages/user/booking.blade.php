@@ -21,6 +21,18 @@
                 </nav>
             </div>
         </div>
+
+        
+      <div class="row">
+        <div class="col-12 pl-lg-0">
+            @if (Session::has('message'))
+            <div class="alert alert-danger">{{ Session::get('message') }}</div>
+            @endif
+           </div>
+      </div>
+     
+     
+     
         @if ($kamar->kamar_kosong > 0)
         <form action="{{ route('booking.room',['kamar'=>$kamar->id])}}" method="post">
             @csrf

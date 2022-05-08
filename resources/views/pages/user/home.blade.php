@@ -19,16 +19,20 @@
         </a>
         </header>
 
+
+<!-- Button trigger modal -->
+{{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button> --}}
+
+
+
     <!-- Booking -->
    <div class="container">
     <section class="booking-content">
         <div class="col-lg-12">
-          
-         
-        
-         <form method="GET" action="" class="row bg-white booking-stat py-3 px-1 booking border 
+         <div method="" action="" class="row bg-white booking-stat py-3 px-1 booking border 
             shadow" style="border-radius: 5px;">
-            @csrf
                <div class="col-lg-3 mt-1 mb-1">
                    <div class="input-group">
                     <input type="text" class="form-control rounded" maxlength="30" placeholder="Guest Name"  name="nama_tamu" value="{{ request()->search }}">
@@ -48,12 +52,31 @@
                    </div>
                </div>
                <div class="col-md-2 mt-1 mb-1">
-                   <button type="submit" class="btn btn-block btn-booking">Check In Now</button>
+                   <button type="" class="btn btn-block btn-booking" data-toggle="modal" data-target="#exampleModal">Check In Now</button>
+
+               
+                  
                </div>
-           </form>
-       
-          
-          
+            </div>
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ganyu Hotel</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                    Sorry, this feature is currently under repair...
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                </div>
+            </div>
        </div>
       </section>
    </div>

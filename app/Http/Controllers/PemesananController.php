@@ -28,7 +28,7 @@ class PemesananController extends Controller
     public function index(Request $request)
     {
         $search = $request->search;
-
+        $tanggal = $request->tanggal;
         $data = Pemesanan::leftJoin('kamars','kamars.id','pemesanans.kamar_id')
                     ->select(
 
@@ -48,7 +48,14 @@ class PemesananController extends Controller
         ->when($search,function($query,$search){
             return $query->where('nama_tamu','like',"%{$search}%")
                         ->orWhere('nama_pemesan','like',"%{$search}%")
-                        ->orWhere('tanggal_checkin','like',"%{$search}%");
+                        ->orWhere('email_pemesan','like',"%{$search}%")
+                        ->orWhere('nama_kamar','like',"%{$search}%")
+                        ->orWhere('no_hp','like',"%{$search}%");
+        })
+        ->when($tanggal,function($query,$tanggal){
+            return $query->whereDate('tanggal_checkin','like',"%{$tanggal}%")
+                         ->orwhereDate('tanggal_checkout','like',"%{$tanggal}%");
+                      
         })
         ->orderBy('id','desc')
         ->paginate(10);

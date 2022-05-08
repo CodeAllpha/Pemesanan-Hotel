@@ -9,6 +9,8 @@ use App\Models\Pemesanan;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use DB;
+use Session;
+
 
 class BookingController extends Controller
 {
@@ -54,7 +56,8 @@ class BookingController extends Controller
          
  
          if ($kamar_kosong < 0){
-            return abort('404');
+            Session::flash('message', "Ops the number of rooms you booked exceeds the avaliable rooms !!");
+            return back();
          }
 
          DB::table('kamars')
