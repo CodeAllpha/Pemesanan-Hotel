@@ -8,6 +8,7 @@ use App\Models\Kamar;
 use App\Helper\Waktu;
 use Barryvdh\DomPDF\Facade\Pdf;
 use DB;
+use Carbon\Carbon;
 
 class PemesananController extends Controller
 {
@@ -25,8 +26,14 @@ class PemesananController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+  
+
+
     public function index(Request $request)
     {
+        // $from = $request->from;
+        // $to = $request->to;
         $search = $request->search;
         $tanggal = $request->tanggal;
         $data = Pemesanan::leftJoin('kamars','kamars.id','pemesanans.kamar_id')
@@ -53,10 +60,17 @@ class PemesananController extends Controller
                         ->orWhere('no_hp','like',"%{$search}%");
         })
         ->when($tanggal,function($query,$tanggal){
-            return $query->whereDate('tanggal_checkin','like',"%{$tanggal}%")
-                         ->orwhereDate('tanggal_checkout','like',"%{$tanggal}%");
+            return $query->whereDate('tanggal_checkin','like',"%{$tanggal}%");
+                        //  ->orwhereDate('tanggal_checkout','like',"%{$tanggal}%");
                       
         })
+        // ->when($from, function($query,$from){
+        //     $to = request()->to;
+        //     if ($to) {
+        //         return $query->whereBetween('tanggal_checkin', [$from,$to]);
+        //     }
+        //     return $query->whereDate('tanggal_checkin','like',"%{$from}%");               
+        // })
         ->orderBy('id','desc')
         ->paginate(10);
 

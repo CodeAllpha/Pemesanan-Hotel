@@ -33,7 +33,7 @@
                     <div class="row bb pb-3">
                         <div class="col-7">
                             <p>Information</p>
-                            <h2>Beta Hotels</h2>
+                            <h2>Ganyu Hotels</h2>
                             <p class="address">Pancimas Street<br>RT 04/01<br>Patimuan</p>
                             <div class="txn">
                                 Kabupaten Cilacap Jawa Tengah   

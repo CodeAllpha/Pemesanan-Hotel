@@ -100,7 +100,14 @@
                             <th width="50%">Room Price</th>
                             <td width="50%" class="text-right">Rp {{ $kamar->harga_kamar }}</td>
                         </tr>
-                    
+
+                        {{-- <tr>
+                            <th width="50%">Room Price</th>
+                            <td width="50%" class="text-right" id="harga_kamar">{{ $kamar->harga_kamar }}</td>
+                            <br>
+                           
+                        </tr>
+                            <td class="mt-5" id="total_harga"></td> --}}
                     </table>
                     
                     </div>
@@ -131,3 +138,15 @@
 
 </main>
 @endsection
+{{-- 
+@push('js')
+    <script>
+        $(document).ready(function(){
+            var price = $("#harga_kamar").text();
+            $("input[name='jum_kamar_dipesan']").keyup(function(){
+                var jumlah = $(this).val();
+                $("#total_harga").text("Total: Rp."+price*jumlah);
+            })
+        });
+    </script>
+@endpush --}}

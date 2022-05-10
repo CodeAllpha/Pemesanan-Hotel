@@ -162,7 +162,7 @@ class KamarController extends Controller
     {
         $request->validate([
             'nama_kamar' => "required|max:40|regex:/^[a-zA-ZÑñ\s\.]+$/|unique:kamars,nama_kamar,{$id}",
-            'kapasitas'=>"required|max:20|regex:/^[a-zA-ZÑñ\s\.]+$/|unique:kamars,kapasitas,{$id}",
+            'kapasitas'=>'required|max:20|min:1|max:4',
             'tipe_kasur'=>'required|max:20|regex:/^[a-zA-ZÑñ\s\.]+$/',
             'luas_kamar'=> 'required|integer|min:10|max:100',
             'panjang_kasur'=> 'required|integer|min:10|max:100',

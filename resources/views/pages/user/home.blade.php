@@ -107,7 +107,7 @@
                 <div class="col-sm-6 col-md-4 col-lg-3">
                     <div class="card-kamar shadow text-center d-flex flex-column"
                     style="background-image: url('{{ $items->foto_kamar }}');">
-                     <div class="hotel-name">Beta Hotel</div>
+                     <div class="hotel-name">Ganyu Hotel</div>
                      <div class="room-name">{{ $items->nama_kamar }}</div>
                      <div class="kamar-button mt-auto">
                          <a href="{{ route('room.detail',['kamar'=>$items->id]) }}" class="btn btn-kamar-details px-4">
